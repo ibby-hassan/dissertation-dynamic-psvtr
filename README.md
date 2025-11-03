@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# dissertation-dynamic-psvtr
+UofG Individual Project (H) Dissertation: "Automatically generating 3D rotation test; can an algorithmically generated test maintain consistent difficulty?"
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---------------------------------------
+TLDR:
+The aim of this project is to innovate upon the existing UofG Purdue Spatial Visualisation Test: Visualisation of Rotations (PSVT:R) test by algorithmically generating shapes. A successful project will attempt to dynamically generate shapes and associated transformations in the test, and will conduct an evaluation to compare how similar difficulty scales between the original and the new. 
 
-Currently, two official plugins are available:
+---------------------------------------
+BACKGROUND:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Purdue Spatial Visualisation Test: Visualisation of Rotations (PSVT:R) test is a test of one's aptitude towards spatial visualisation. 
+The test consists of 30 questions of increasing difficulty, taking place over 20 minutes. It involves presenting the subject with various 3D shapes modelled on a 2D plane, with little to no aides to assist with depth-perception, such as shading or a Z-axis metric. The shape is then manipulated in some way. A second shape is then presented, and the user has to select from multiple choice, which option presented is the result of the presented shape if it underwent the same transformation as the example shape. 
 
-## React Compiler
+Spatial visualisation is strongly correlated with success in STEM fields, making the PSVT:R an important diagnostic tool. However, the limited and static bank of items compromises validity once test items are widely circulated.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+The issue with the original PSVT:R test (and indeed that which the University of Glasgow possesses and utilises), is that the test always presents the same 3D shapes with the same transformations. This means once test items are shared, the validity of tests taken is compromised. 
 
-## Expanding the ESLint configuration
+---------------------------------------
+AIMS & OBJECTIVES:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The crux of the solution to this problem is to introduce elements of random generation to the test. 
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The Minimum Viable Product for this project is the following:
+	A. A PSVT:R test with an element of randomisation regarding the shapes/transformations.
+	B. Present the shapes/transformations as an MCQ test for the user.
+	C. Host the test via a test-taking platform (web-app). 
+	D. Test increases in difficulty progressively.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The following MoSCoW board represents potential deliverables ranked by importance. 
+	MUST HAVE
+		- Set of bespoke shapes for use in test.
+		- Algorithm to apply transformations for each shape.
+		- Metric for difficulty measurement.
+		- Web-app platform from which to take the test.
+	SHOULD HAVE
+		- Random, on-demand generation of shapes for use in test.
+		- Global difficulty metrics weigh both inherent shape difficulty and difficulty of transformation.
+		- Responsive web-app from which to take the test.
+	COULD HAVE
+		- A comparative study on previous version of the PSVT:R test VS current version.
+		- Log-in features to track how users perform in the test.
+		- Dashboard of stats to view how users are performing in the test.
+	WOULD BE NICE TO HAVE
+		- Experimental settings which tinker with shading/colouring/extra facets of information 
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---------------------------------------
+TECHNICAL APPROACH:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A back-end will not be required for this project, currently. 
+PSVT:R shapes will be built using a 2x2x2 cube of 'voxels'; building blocks which will be rendered in real-time via the client's system.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Rendering is performed using R3F, a library which wraps Three.js within React.js seamlessly.
+Three.js itself forms an endpoint to interact with WebGL to render 3D models. 
+Tailwindcss is used for formatting to negate the use of direct in React components. 
+React components are written in TypeScript.
