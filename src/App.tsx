@@ -1,13 +1,15 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
+import ShapeRenderer from './components/ShapeRenderer';
 
+/* Voxels are defined here, for storing in the app's state. */
 export interface Voxel {
   type: 'cube' | 'ramp' | 'half';
   rotation?: [number, number, number];
 };
 
-// VoxelSet tracks which voxels are active to make up the 2x2x2 composite shape.
+/* VoxelSpace is that aforementioned state. */
 export type VoxelSpace = {
   0: null|Voxel;
   1: null|Voxel;
@@ -20,12 +22,19 @@ export type VoxelSpace = {
 };
 
 const App = () => {
-
-// Start with an empty voxelSpace. Use setVoxelSpace when making changes to the scene.
-const [voxelSpace, setVoxelSpace] = useState<VoxelSpace>({
-    0: null, 1: null, 2: null, 3: null, 
+  /* Initialise an empty voxelSpace to begin with. */
+  const [voxelSpace, setVoxelSpace] = useState<VoxelSpace>({
+    0: {type: 'cube'}, 1: null, 2: null, 3: null, 
     4: null, 5: null, 6: null, 7: null
-});
+  });
+
+  // Action Listener: Toggles a cube at index 1 (coords 0,0,1)
+  const handleAction = () => {
+    setVoxelSpace((prev) => ({
+      ...prev, 
+      1: prev[1] ? null : { type: 'cube' }
+    }));
+  };
 
   return (
     <div className="h-dvh bg-gray-500">
@@ -33,11 +42,11 @@ const [voxelSpace, setVoxelSpace] = useState<VoxelSpace>({
         frameloop={"demand"} 
         camera={ {zoom: 135, position: [3,3,3]} } 
         orthographic
-        onPointerDown={toggleCube}
+        onPointerDown={handleAction}
       >
         <axesHelper args={[2]}/>
         <ambientLight intensity={1.5} />
-
+        <ShapeRenderer voxelSpace={voxelSpace}/>
         <OrbitControls/>
       </Canvas>
     </div>
