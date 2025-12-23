@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import ShapeRenderer from './components/ShapeRenderer';
 
+
 /* Voxels are defined here, for storing in the app's state. */
 export interface Voxel {
   type: 'cube' | 'ramp' | 'half';
@@ -24,7 +25,7 @@ export type VoxelSpace = {
 const App = () => {
   /* Initialise an empty voxelSpace to begin with. */
   const [voxelSpace, setVoxelSpace] = useState<VoxelSpace>({
-    0: {type: 'cube'}, 1: null, 2: null, 3: null, 
+    0: {type: 'cube'}, 1: null, 2: {type: 'cube'}, 3: null, 
     4: null, 5: null, 6: null, 7: null
   });
 
