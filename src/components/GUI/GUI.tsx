@@ -6,9 +6,10 @@ import type { Voxel } from '../../App';
 interface GUIProps {
     selectedVoxelType: Voxel['type'];
     setSelectedVoxelType: (type: Voxel['type']) => void;
+    onSlotClick: (index: number) => void;
 }
 
-const GUI: React.FC<GUIProps> = ({ selectedVoxelType, setSelectedVoxelType }) => {
+const GUI: React.FC<GUIProps> = ({ selectedVoxelType, setSelectedVoxelType, onSlotClick }) => {
     return (
         <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-6">
             {/* Top Bar */}
@@ -26,8 +27,8 @@ const GUI: React.FC<GUIProps> = ({ selectedVoxelType, setSelectedVoxelType }) =>
             <div className="flex-grow" />
 
             {/* Bottom Toolbar */}
-            <div className="flex justify-center items-end pb-4">
-                <GUISlots />
+            <div className="flex justify-center items-end pb-3">
+                <GUISlots onSlotClick={onSlotClick} />
             </div>
         </div>
     );

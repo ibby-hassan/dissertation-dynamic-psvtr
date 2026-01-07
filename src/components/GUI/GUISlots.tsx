@@ -1,6 +1,10 @@
 import React from 'react';
 
-const GUISlots: React.FC = () => {
+interface GUISlotsProps {
+    onSlotClick: (index: number) => void;
+}
+
+const GUISlots: React.FC<GUISlotsProps> = ({ onSlotClick }) => {
     const slots = Array.from({ length: 8 }, (_, i) => i);
 
     return (
@@ -8,6 +12,7 @@ const GUISlots: React.FC = () => {
             {slots.map((slot) => (
                 <div
                     key={slot}
+                    onClick={() => onSlotClick(slot)}
                     className="w-12 h-12 flex items-center justify-center bg-white border border-white rounded-lg hover:bg-white/20 hover:border-white/20 hover:scale-105 transition-all cursor-pointer group"
                 >
                     <span className="text-black text-sm group-hover:text-black transition-colors">
