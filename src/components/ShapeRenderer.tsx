@@ -2,14 +2,14 @@ import { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { Geometry, Base, Addition, type CSGGeometryRef } from '@react-three/csg';
-import { type VoxelSpace, type Voxel } from '../App';
-import { getVoxelsFromSpace, GEOMETRIES } from '../utils/voxelUtils';
+import { type VoxelSpace } from '../App';
+import { getVoxelsFromSpace, GEOMETRIES } from '../utils/VoxelUtils';
 
 interface ShapeRendererProps {
   voxelSpace: VoxelSpace;
 }
 
-const ShapeRenderer = ({ voxelSpace }: ShapeRendererProps) => {  
+const ShapeRenderer: React.FC<ShapeRendererProps> = ({ voxelSpace }: ShapeRendererProps) => {
 
   // When voxelSpace changes, flag that edges need updating
   const needsEdgeUpdate = useRef(true);
@@ -48,7 +48,7 @@ const ShapeRenderer = ({ voxelSpace }: ShapeRendererProps) => {
             </Addition>
           ))}
         </Geometry>
-        <meshStandardMaterial color="white" />
+        <meshBasicMaterial color="white" />
       </mesh>
 
       {/* Black edges rendered on top once the composite shape is rendered. */}
