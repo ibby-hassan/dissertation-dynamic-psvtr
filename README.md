@@ -51,5 +51,5 @@ PSVT:R shapes will be built using a 2x2x2 cube of 'voxels'; building blocks whic
 
 Rendering is performed using R3F, a library which wraps Three.js within React.js seamlessly.
 Three.js itself forms an endpoint to interact with WebGL to render 3D models. 
-Tailwindcss is used for formatting to negate the use of direct in React components. 
+Vanilla-extract is used to style components. 
 React components are written in TypeScript.
