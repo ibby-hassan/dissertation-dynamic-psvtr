@@ -2,10 +2,30 @@
 import { appscreen, toolbarSection, cnvsSection, cnvsCanvas, cnvstoolbar } from './App.css.ts';
 import CanvasComponent from './components/CanvasComponent.tsx';
 import { useState } from 'react';
-import { generateEmptyShape, type Shape } from './utils/shapeUtils';
+import { generateEmptyShape, type Shape, type SubshapeType } from './utils/shapeUtils';
 
 const App = () => {
-  const [shape, setShape] = useState<Shape>(generateEmptyShape());
+  const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
+
+  const updateSubshapeType = (index: number, newType: SubshapeType) => {
+    setShapeState((prevShapeState) => {
+      const newShapeState = [...prevShapeState];
+      newShapeState[index - 1] = { ...newShapeState[index - 1], type: newType };
+      return newShapeState;
+    });
+  };
+
+  const updateSubshapeRotation = (index: number, newRotation: [number, number, number]) => {
+    setShapeState((prevShapeState) => {
+      const newShapeState = [...prevShapeState];
+      newShapeState[index - 1] = { ...newShapeState[index - 1], rotation: newRotation };
+      return newShapeState;
+    });
+  };
+
+  const resetShape = () => {
+    setShapeState(generateEmptyShape());
+  };
 
   return (
     <div className={appscreen}>
@@ -25,5 +45,3 @@ const App = () => {
 }
 
 export default App;
-
-// Shape Manipulation Functions
