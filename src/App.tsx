@@ -1,21 +1,29 @@
-import { OrbitControls } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
 
+import { appscreen, toolbarSection, cnvsSection, cnvsCanvas, cnvstoolbar } from './App.css.ts';
+import CanvasComponent from './components/CanvasComponent.tsx';
+import { useState } from 'react';
+import { generateEmptyShape, type Shape } from './utils/shapeUtils';
 
 const App = () => {
+  const [shape, setShape] = useState<Shape>(generateEmptyShape());
+
   return (
-    <div className="relative w-full h-screen bg-gray-200">
-      <Canvas
-        frameloop={"demand"}
-        camera={{ zoom: 135, position: [3, 3, 3] }}
-        orthographic
-        flat={true}
-      >
-        <axesHelper args={[2]} />
-        <OrbitControls />
-      </Canvas>
+    <div className={appscreen}>
+      <aside className={toolbarSection}>
+
+      </aside>
+      <div className={cnvsSection}>
+        <section className={cnvsCanvas}>
+          {/* <CanvasComponent /> */}
+        </section>
+        <section className={cnvstoolbar}>
+
+        </section>
+      </div>
     </div>
   )
 }
 
 export default App;
+
+// Shape Manipulation Functions
