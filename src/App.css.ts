@@ -7,12 +7,10 @@ export const appscreen = style({
     height: "100vh",
 });
 
-export const toolbarSection = style({
-    backgroundColor: "grey",
+export const menuSection = style({
+    backgroundColor: "#E00000",
     height: "100%",
     width: "25%",
-    display: "flex",
-    flexDirection: "column",
 });
 
 export const cnvsSection = style({
@@ -25,12 +23,13 @@ export const cnvsSection = style({
 export const cnvsCanvas = style({
     width: "100%",
     height: "80%",
+    backgroundColor: "#F4F4F8",
 });
 
 export const cnvsToolbar = style({
     width: "100%",
     height: "20%",
     display: "flex",
-    borderTop: "1px solid black",
-});
+    backgroundColor: "#009FB7",
+})
 

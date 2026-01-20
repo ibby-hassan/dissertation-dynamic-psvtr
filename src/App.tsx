@@ -1,9 +1,11 @@
 
-import { appscreen, toolbarSection, cnvsSection, cnvsCanvas, cnvsToolbar } from './App.css.ts';
+import { appscreen, menuSection, cnvsSection, cnvsCanvas, cnvsToolbar } from './App.css.ts';
 import { useState } from 'react';
 import { generateEmptyShape, type Shape, type SubshapeType } from './utils/shapeUtils';
+
 import CanvasToolbar from './components/CanvasToolbar.tsx';
 import CanvasComponent from './components/CanvasComponent.tsx';
+import MenuSection from './components/menuSection.tsx';
 
 
 const App = () => {
@@ -31,8 +33,8 @@ const App = () => {
 
   return (
     <div className={appscreen}>
-      <aside className={toolbarSection}>
-
+      <aside className={menuSection}>
+        <MenuSection />
       </aside>
       <div className={cnvsSection}>
         <section className={cnvsCanvas}>
