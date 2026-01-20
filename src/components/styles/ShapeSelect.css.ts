@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 
 export const shapeSelect = style({
     position: "relative",
-    backgroundColor: "#E6E6EA",
+    backgroundColor: "#FED766",
     width: "5vw",
     height: "5vw",
     borderRadius: "10%",
@@ -24,6 +24,6 @@ export const label = style({
 });
 
 export const active = style({
-    backgroundColor: "#D0D0D4",
-    border: "2px solid #555",
+    backgroundColor: "#DFA801",
+    border: "2px solid #8D6A01",
 });

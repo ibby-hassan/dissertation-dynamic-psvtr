@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 
 export const subshapeSelect = style({
     position: "relative",
-    backgroundColor: "#E6E6EA",
+    backgroundColor: "#FED766",
     width: "8vw",
     height: "9vw",
     borderRadius: "10%",
