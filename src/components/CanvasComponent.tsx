@@ -10,6 +10,7 @@ const CanvasComponent = () => {
             flat={true}
         >
             <axesHelper args={[2]} />
+            {/* <OrbitControls /> */}
         </Canvas>
     )
 }

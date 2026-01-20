@@ -1,8 +1,10 @@
 
-import { appscreen, toolbarSection, cnvsSection, cnvsCanvas, cnvstoolbar } from './App.css.ts';
-import CanvasComponent from './components/CanvasComponent.tsx';
+import { appscreen, toolbarSection, cnvsSection, cnvsCanvas, cnvsToolbar } from './App.css.ts';
 import { useState } from 'react';
 import { generateEmptyShape, type Shape, type SubshapeType } from './utils/shapeUtils';
+import CanvasToolbar from './components/CanvasToolbar.tsx';
+import CanvasComponent from './components/CanvasComponent.tsx';
+
 
 const App = () => {
   const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
@@ -36,8 +38,8 @@ const App = () => {
         <section className={cnvsCanvas}>
           {/* <CanvasComponent /> */}
         </section>
-        <section className={cnvstoolbar}>
-
+        <section className={cnvsToolbar}>
+          <CanvasToolbar />
         </section>
       </div>
     </div>
