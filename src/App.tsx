@@ -10,6 +10,7 @@ import MenuSection from './components/menuSection.tsx';
 
 const App = () => {
   const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
+  const [selectedSubshape, setSelectedSubshape] = useState<SubshapeType>('cube');
 
   const updateSubshapeType = (index: number, newType: SubshapeType) => {
     setShapeState((prevShapeState) => {
@@ -34,11 +35,14 @@ const App = () => {
   return (
     <div className={appscreen}>
       <aside className={menuSection}>
-        <MenuSection />
+        <MenuSection
+          selectedShape={selectedSubshape}
+          onSelectShape={setSelectedSubshape}
+        />
       </aside>
       <div className={cnvsSection}>
         <section className={cnvsCanvas}>
-          {/* <CanvasComponent /> */}
+          <CanvasComponent onReset={resetShape} />
         </section>
         <section className={cnvsToolbar}>
           <CanvasToolbar />

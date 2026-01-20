@@ -8,7 +8,7 @@ export const appscreen = style({
 });
 
 export const menuSection = style({
-    backgroundColor: "#E00000",
+    backgroundColor: "#FF3333",
     height: "100%",
     width: "25%",
 });
