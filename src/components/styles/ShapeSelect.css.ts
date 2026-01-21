@@ -3,8 +3,8 @@ import { style } from "@vanilla-extract/css";
 export const shapeSelect = style({
     position: "relative",
     backgroundColor: "#FED766",
-    width: "5vw",
-    height: "5vw",
+    width: "100%",           // Let the grid container determine width
+    aspectRatio: "1 / 1",    // Keep it square
     borderRadius: "10%",
     border: "none",
     cursor: "pointer",
@@ -13,11 +13,12 @@ export const shapeSelect = style({
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
+    minWidth: "60px",        // Absolute minimum before it looks bad
 });
 
 export const label = style({
     marginTop: "5%",
-    fontSize: "1.0vw",
+    fontSize: "1rem",        // Use rem for consistent text size
     color: "#333",
     fontWeight: "bold",
     textTransform: "capitalize",

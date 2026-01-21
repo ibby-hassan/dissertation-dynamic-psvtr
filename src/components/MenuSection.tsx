@@ -1,4 +1,4 @@
-import { menuSection, title, shapeGrid } from "./styles/menuSection.css.ts";
+import { menuSection, title, shapeGrid } from "./styles/MenuSection.css.ts";
 import ShapeSelect from "./ShapeSelect";
 import type { SubshapeType } from "../utils/shapeUtils";
 

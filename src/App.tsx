@@ -1,32 +1,30 @@
-
-import { appscreen, menuSection, cnvsSection, cnvsCanvas, cnvsToolbar } from './App.css.ts';
+import { 
+  appscreen, 
+  menuSection, 
+  cnvsSection, 
+  cnvsCanvas, 
+  cnvsToolbar, 
+  resizerVertical, 
+  resizerHorizontal 
+} from './App.css.ts';
 import { useState } from 'react';
 import { generateEmptyShape, type Shape, type SubshapeType } from './utils/shapeUtils';
+import { useResizableLayout } from './utils/useResizableLayout'; // Assuming you moved the hook here
 
 import CanvasToolbar from './components/CanvasToolbar.tsx';
 import CanvasComponent from './components/CanvasComponent.tsx';
-import MenuSection from './components/menuSection.tsx';
-
+import MenuSection from './components/MenuSection.tsx';
 
 const App = () => {
   const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
   const [selectedSubshape, setSelectedSubshape] = useState<SubshapeType>('cube');
 
-  const updateSubshapeType = (index: number, newType: SubshapeType) => {
-    setShapeState((prevShapeState) => {
-      const newShapeState = [...prevShapeState];
-      newShapeState[index - 1] = { ...newShapeState[index - 1], type: newType };
-      return newShapeState;
-    });
-  };
-
-  const updateSubshapeRotation = (index: number, newRotation: [number, number, number]) => {
-    setShapeState((prevShapeState) => {
-      const newShapeState = [...prevShapeState];
-      newShapeState[index - 1] = { ...newShapeState[index - 1], rotation: newRotation };
-      return newShapeState;
-    });
-  };
+  const { 
+    sidebarWidth, 
+    bottomHeight, 
+    startResizingSidebar, 
+    startResizingBottom 
+  } = useResizableLayout();
 
   const resetShape = () => {
     setShapeState(generateEmptyShape());
@@ -34,19 +32,26 @@ const App = () => {
 
   return (
     <div className={appscreen}>
-      <aside className={menuSection}>
+      
+      <aside className={menuSection} style={{ width: `${sidebarWidth}px` }}>
         <MenuSection
           selectedShape={selectedSubshape}
           onSelectShape={setSelectedSubshape}
         />
       </aside>
-      <div className={cnvsSection}>
+      <div className={resizerVertical} onMouseDown={startResizingSidebar} />
+
+      <div className={cnvsSection} style={{ gridTemplateRows: `1fr auto ${bottomHeight}px` }}>
+        
         <section className={cnvsCanvas}>
           <CanvasComponent onReset={resetShape} />
         </section>
+        <div className={resizerHorizontal} onMouseDown={startResizingBottom} />
+
         <section className={cnvsToolbar}>
           <CanvasToolbar />
         </section>
+
       </div>
     </div>
   )

@@ -3,19 +3,24 @@ import { style } from "@vanilla-extract/css";
 export const menuSection = style({
     display: "flex",
     flexDirection: "column",
-    paddingTop: "3%",
+    padding: "1rem",         // Standard padding
     color: "#F4F4F8",
-    alignItems: "center"
+    alignItems: "center",
+    height: "100%",
+    overflowY: "auto",       // Allow scrolling if vertical space runs out
 });
 
 export const title = style({
-    fontSize: "2vw",
-
+    fontSize: "1.5rem",
+    marginBottom: "1rem",
+    textAlign: "center",
 });
 
 export const shapeGrid = style({
     display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: "1vw",
-    marginTop: "5%",
+    width: "100%",
+    // Automatically fit as many 90px columns as possible
+    gridTemplateColumns: "repeat(auto-fill, minmax(90px, 1fr))", 
+    gap: "0.8rem",
+    marginTop: "1rem",
 });

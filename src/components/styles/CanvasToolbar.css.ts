@@ -3,7 +3,9 @@ import { style } from "@vanilla-extract/css";
 export const canvasToolbar = style({
     display: "flex",
     width: "100%",
-    justifyContent: "space-between",
+    height: "100%", 
+    justifyContent: "space-evenly",
     alignItems: "center",
-    padding: "1%",
+    padding: "0 1%",
+    boxSizing: "border-box", 
 });
