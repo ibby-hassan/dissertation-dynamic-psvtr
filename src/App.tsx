@@ -9,7 +9,7 @@ import MenuSection from './components/MenuSection.tsx';
 
 const App = () => {
   const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
-  const [selectedSubshape, setSelectedSubshape] = useState<SubshapeType>('cube');
+  const [selectedSubshape, setSelectedSubshape] = useState<SubshapeType>('empty');
 
   // Resizable layout
   const { sidebarWidth, bottomHeight, startResizingSidebar, startResizingBottom } = useResizableLayout();
@@ -19,6 +19,7 @@ const App = () => {
       setShapeState((prevShapeState) => {
         const newShapeState = [...prevShapeState];
         newShapeState[index - 1] = { ...newShapeState[index - 1], type: newType };
+        console.log(newShapeState);
         return newShapeState;
       });
     };
@@ -54,7 +55,9 @@ const App = () => {
         <div className={resizerHorizontal} onMouseDown={startResizingBottom} />
 
         <section className={cnvsToolbar}>
-          <CanvasToolbar />
+          <CanvasToolbar 
+            onSubshapeClick={(index) => updateSubshapeType(index, selectedSubshape)} 
+          />
         </section>
 
       </div>
