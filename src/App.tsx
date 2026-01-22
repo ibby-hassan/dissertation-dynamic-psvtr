@@ -10,6 +10,7 @@ import MenuSection from './components/MenuSection.tsx';
 const App = () => {
   const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
   const [selectedSubshape, setSelectedSubshape] = useState<SubshapeType>('empty');
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   // Resizable layout
   const { sidebarWidth, bottomHeight, startResizingSidebar, startResizingBottom } = useResizableLayout();
@@ -43,6 +44,7 @@ const App = () => {
         <MenuSection
           selectedShape={selectedSubshape}
           onSelectShape={setSelectedSubshape}
+        
         />
       </aside>
       <div className={resizerVertical} onMouseDown={startResizingSidebar} />
@@ -50,13 +52,18 @@ const App = () => {
       <div className={cnvsSection} style={{ gridTemplateRows: `1fr auto ${bottomHeight}px` }}>
 
         <section className={cnvsCanvas}>
-          <CanvasComponent onReset={resetShape} shape={shapeState} />
+          <CanvasComponent
+            onReset={resetShape} 
+            shape={shapeState} 
+            hoveredIndex={hoveredIndex}
+          />
         </section>
         <div className={resizerHorizontal} onMouseDown={startResizingBottom} />
 
         <section className={cnvsToolbar}>
           <CanvasToolbar
             onSubshapeClick={(index) => updateSubshapeType(index, selectedSubshape)}
+            onHover={setHoveredIndex}
           />
         </section>
 

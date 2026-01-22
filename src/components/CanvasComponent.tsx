@@ -5,15 +5,17 @@ import CanvasOverlay from './CanvasOverlay';
 import ShapeSpace from './ShapeSpace.tsx';
 import SceneUpdater from '../utils/SceneUpdater';
 import type { Shape } from '../utils/shapeUtils';
+import SubshapeIndicator from './SubshapeIndicator.tsx';
 
 interface CanvasComponentProps {
   onReset: () => void;
   shape: Shape;
+  hoveredIndex: number | null;
 }
 
 
 
-const CanvasComponent = ({ onReset, shape }: CanvasComponentProps) => {
+const CanvasComponent = ({ onReset, shape, hoveredIndex }: CanvasComponentProps) => {
   return (
     <div className={canvasWrapper}>
       <CanvasOverlay onReset={onReset} />
@@ -28,6 +30,7 @@ const CanvasComponent = ({ onReset, shape }: CanvasComponentProps) => {
 
         <ShapeSpace shape={shape} />
         <SceneUpdater shape={shape} /> {/* Forces updates when shape changes */}
+        <SubshapeIndicator hoveredIndex={hoveredIndex} />
 
         {/* <axesHelper args={[2]} /> */}
         {/* <OrbitControls /> */}
