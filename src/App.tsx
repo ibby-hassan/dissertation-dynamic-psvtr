@@ -16,21 +16,21 @@ const App = () => {
 
   // Shape Manipulations
   const updateSubshapeType = (index: number, newType: SubshapeType) => {
-      setShapeState((prevShapeState) => {
-        const newShapeState = [...prevShapeState];
-        newShapeState[index - 1] = { ...newShapeState[index - 1], type: newType };
-        console.log(newShapeState);
-        return newShapeState;
-      });
-    };
-
-  const updateSubshapeRotation = (index: number, newRotation: [number, number, number]) => {
     setShapeState((prevShapeState) => {
       const newShapeState = [...prevShapeState];
-      newShapeState[index - 1] = { ...newShapeState[index - 1], rotation: newRotation };
+      newShapeState[index - 1] = { ...newShapeState[index - 1], type: newType };
+      console.log(newShapeState);
       return newShapeState;
     });
   };
+
+  // const updateSubshapeRotation = (index: number, newRotation: [number, number, number]) => {
+  //   setShapeState((prevShapeState) => {
+  //     const newShapeState = [...prevShapeState];
+  //     newShapeState[index - 1] = { ...newShapeState[index - 1], rotation: newRotation };
+  //     return newShapeState;
+  //   });
+  // };
 
   const resetShape = () => {
     setShapeState(generateEmptyShape());
@@ -38,7 +38,7 @@ const App = () => {
 
   return (
     <div className={appscreen}>
-      
+
       <aside className={menuSection} style={{ width: `${sidebarWidth}px` }}>
         <MenuSection
           selectedShape={selectedSubshape}
@@ -48,15 +48,15 @@ const App = () => {
       <div className={resizerVertical} onMouseDown={startResizingSidebar} />
 
       <div className={cnvsSection} style={{ gridTemplateRows: `1fr auto ${bottomHeight}px` }}>
-        
+
         <section className={cnvsCanvas}>
-          <CanvasComponent onReset={resetShape} />
+          <CanvasComponent onReset={resetShape} shape={shapeState} />
         </section>
         <div className={resizerHorizontal} onMouseDown={startResizingBottom} />
 
         <section className={cnvsToolbar}>
-          <CanvasToolbar 
-            onSubshapeClick={(index) => updateSubshapeType(index, selectedSubshape)} 
+          <CanvasToolbar
+            onSubshapeClick={(index) => updateSubshapeType(index, selectedSubshape)}
           />
         </section>
 
