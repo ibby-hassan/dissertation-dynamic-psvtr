@@ -1,5 +1,4 @@
-import type { Shape, Subshape } from './shapeUtils';
-import * as THREE from 'three';
+import type { Shape, Subshape } from '../utils/shapeUtils';
 
 interface ShapeSpaceProps {
   shape: Shape;
@@ -7,8 +6,8 @@ interface ShapeSpaceProps {
 
 const GEOMETRIES = {
   empty: null,
-  cube: <boxGeometry args={[1,1,1]} />,
-  half: <boxGeometry args={[1,0.5,1]} />,
+  cube: <boxGeometry args={[1, 1, 1]} />,
+  half: <boxGeometry args={[1, 0.5, 1]} />,
   wedge: null
 };
 
@@ -24,7 +23,7 @@ const ShapeSpace = ({ shape }: ShapeSpaceProps) => {
           <group position={position} rotation={rotation}>
             <mesh>
               {GEOMETRIES[type]}
-              <meshStandardMaterial color="white"/>
+              <meshStandardMaterial color="white" />
             </mesh>
           </group>
         );
