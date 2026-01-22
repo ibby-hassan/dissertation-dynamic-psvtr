@@ -36,8 +36,7 @@ The following MoSCoW board represents potential deliverables ranked by importanc
 ## CURRENT STACK
 The project does not require a back-end. 
 
-3D models are rendered using React-Three-Fiber, a Three.js library that functions within React.js seamlessly.
-  - Three.js is a library which simplifies use of the WebGL API.
-Tailwindcss is used for general formatting.
-Vite is used to compile React.
+Rendering is performed using R3F, a library which wraps Three.js within React.js seamlessly.
+Three.js itself forms an endpoint to interact with WebGL to render 3D models. 
+Vanilla-extract is used to style components. 
 React components are written in TypeScript.
