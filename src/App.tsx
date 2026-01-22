@@ -1,15 +1,7 @@
-import { 
-  appscreen, 
-  menuSection, 
-  cnvsSection, 
-  cnvsCanvas, 
-  cnvsToolbar, 
-  resizerVertical, 
-  resizerHorizontal 
-} from './App.css.ts';
+import { appscreen, menuSection, cnvsSection, cnvsCanvas, cnvsToolbar, resizerVertical, resizerHorizontal } from './App.css.ts';
 import { useState } from 'react';
 import { generateEmptyShape, type Shape, type SubshapeType } from './utils/shapeUtils';
-import { useResizableLayout } from './utils/useResizableLayout'; // Assuming you moved the hook here
+import { useResizableLayout } from './utils/useResizableLayout';
 
 import CanvasToolbar from './components/CanvasToolbar.tsx';
 import CanvasComponent from './components/CanvasComponent.tsx';
@@ -19,12 +11,25 @@ const App = () => {
   const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
   const [selectedSubshape, setSelectedSubshape] = useState<SubshapeType>('cube');
 
-  const { 
-    sidebarWidth, 
-    bottomHeight, 
-    startResizingSidebar, 
-    startResizingBottom 
-  } = useResizableLayout();
+  // Resizable layout
+  const { sidebarWidth, bottomHeight, startResizingSidebar, startResizingBottom } = useResizableLayout();
+
+  // Shape Manipulations
+  const updateSubshapeType = (index: number, newType: SubshapeType) => {
+      setShapeState((prevShapeState) => {
+        const newShapeState = [...prevShapeState];
+        newShapeState[index - 1] = { ...newShapeState[index - 1], type: newType };
+        return newShapeState;
+      });
+    };
+
+  const updateSubshapeRotation = (index: number, newRotation: [number, number, number]) => {
+    setShapeState((prevShapeState) => {
+      const newShapeState = [...prevShapeState];
+      newShapeState[index - 1] = { ...newShapeState[index - 1], rotation: newRotation };
+      return newShapeState;
+    });
+  };
 
   const resetShape = () => {
     setShapeState(generateEmptyShape());
