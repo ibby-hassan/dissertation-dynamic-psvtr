@@ -25,13 +25,33 @@ const App = () => {
     });
   };
 
-  // const updateSubshapeRotation = (index: number, newRotation: [number, number, number]) => {
-  //   setShapeState((prevShapeState) => {
-  //     const newShapeState = [...prevShapeState];
-  //     newShapeState[index - 1] = { ...newShapeState[index - 1], rotation: newRotation };
-  //     return newShapeState;
-  //   });
-  // };
+  const updateSubshapeRotation = (index: number, direction: 'up' | 'down' | 'left' | 'right') => {
+    setShapeState((prevShapeState) => {
+      const newShapeState = [...prevShapeState];
+      const targetShape = newShapeState[index - 1];
+      
+      const HALF_PI = Math.PI / 2;
+      let newRotation = [...targetShape.rotation] as [number, number, number];
+
+      switch (direction) {
+        case 'left':
+          newRotation[1] -= HALF_PI;
+          break;
+        case 'right':
+          newRotation[1] += HALF_PI;
+          break;
+        case 'up':
+          newRotation[2] += HALF_PI;
+          break;
+        case 'down':
+          newRotation[2] -= HALF_PI;
+          break;
+      }
+
+      newShapeState[index - 1] = { ...targetShape, rotation: newRotation };
+      return newShapeState;
+    });
+  };
 
   const resetShape = () => {
     setShapeState(generateEmptyShape());
@@ -63,6 +83,7 @@ const App = () => {
         <section className={cnvsToolbar}>
           <CanvasToolbar
             onSubshapeClick={(index) => updateSubshapeType(index, selectedSubshape)}
+            onRotate={(index, dir) => updateSubshapeRotation(index, dir)}
             onHover={setHoveredIndex}
           />
         </section>

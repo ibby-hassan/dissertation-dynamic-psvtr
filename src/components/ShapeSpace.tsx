@@ -17,10 +17,10 @@ const ShapeSpace = ({ shape }: ShapeSpaceProps) => {
       {shape.map((subshape: Subshape) => {
         if (subshape.type === 'empty') return null;
 
-        const { position, rotation, type } = subshape;
+        const { position, rotation, type, index } = subshape;
 
         return (
-          <group position={position} rotation={rotation}>
+          <group key={index} position={position} rotation={rotation}>
             <mesh>
               {GEOMETRIES[type]}
               <meshStandardMaterial color="white" />

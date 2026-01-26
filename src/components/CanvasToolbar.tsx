@@ -4,10 +4,10 @@ import SubshapeSelect from "./SubshapeSelect";
 interface CanvasToolbarProps {
     onSubshapeClick: (index: number) => void;
     onHover: (index: number | null) => void;
+    onRotate: (index: number, direction: 'up' | 'down' | 'left' | 'right') => void;
 };
-    
 
-const CanvasToolbar = ({ onSubshapeClick, onHover }: CanvasToolbarProps) => {
+const CanvasToolbar = ({ onSubshapeClick, onHover, onRotate }: CanvasToolbarProps) => {
     return (
         <div className={canvasToolbar}>
             {Array.from({ length: 8 }, (_, index) => (
@@ -17,6 +17,7 @@ const CanvasToolbar = ({ onSubshapeClick, onHover }: CanvasToolbarProps) => {
                     onClick={() => onSubshapeClick(index + 1)} 
                     onMouseEnter={() => onHover(index + 1)}
                     onMouseLeave={() => onHover(null)}
+                    onRotate={(dir) => onRotate(index + 1, dir)}
                 />
             ))}
         </div>
