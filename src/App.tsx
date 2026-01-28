@@ -29,7 +29,7 @@ const App = () => {
     setShapeState((prevShapeState) => {
       const newShapeState = [...prevShapeState];
       const targetShape = newShapeState[index - 1];
-      
+
       const HALF_PI = Math.PI / 2;
       let newRotation = [...targetShape.rotation] as [number, number, number];
 
@@ -64,7 +64,7 @@ const App = () => {
         <MenuSection
           selectedShape={selectedSubshape}
           onSelectShape={setSelectedSubshape}
-        
+
         />
       </aside>
       <div className={resizerVertical} onMouseDown={startResizingSidebar} />
@@ -73,8 +73,8 @@ const App = () => {
 
         <section className={cnvsCanvas}>
           <CanvasComponent
-            onReset={resetShape} 
-            shape={shapeState} 
+            onReset={resetShape}
+            shape={shapeState}
             hoveredIndex={hoveredIndex}
           />
         </section>

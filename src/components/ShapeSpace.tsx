@@ -1,17 +1,29 @@
 import type { Shape, Subshape } from '../utils/shapeUtils';
-import * as THREE from 'three'; // Import Three.js to create the Shape
+import * as THREE from 'three'; 
 
-// 1. Define the 2D Triangle Shape (Right Angle)
+// --- Wedge Definition ---
 export const wedgeShape = new THREE.Shape();
-wedgeShape.moveTo(0, 0); // Start at corner
-wedgeShape.lineTo(1, 0); // Draw width
-wedgeShape.lineTo(0, 1); // Draw height
-wedgeShape.closePath();  // Connect back to start
+wedgeShape.moveTo(0, 0);
+wedgeShape.lineTo(1, 0);
+wedgeShape.lineTo(0, 1);
+wedgeShape.closePath();
 
-// 2. Define Extrusion Settings
-export const wedgeSettings = { 
+// --- Pie Definition (New) ---
+const pieShape = new THREE.Shape();
+pieShape.moveTo(0, 0); // Start at corner
+pieShape.lineTo(1, 0); // Bottom edge
+// Create a quarter circle from (1,0) to (0,1)
+// absarc(x, y, radius, startAngle, endAngle, clockwise)
+pieShape.absarc(0, 0, 1, 0, Math.PI / 2, false); 
+pieShape.lineTo(0, 0); // Close back to corner
+pieShape.closePath();
+
+// --- Extrusion Settings ---
+// Shared settings ensure they have same depth and look
+export const extrudeSettings = { 
   depth: 1, 
-  bevelEnabled: false 
+  bevelEnabled: false,
+  curveSegments: 32 // Smoother curve for the pie
 };
 
 const GEOMETRIES = {
@@ -24,9 +36,12 @@ const GEOMETRIES = {
     geometry: <boxGeometry args={[1, 0.5, 1]} />,
     offset: [0, -0.25, 0] as [number, number, number],
   },
- wedge: {
-    geometry: <extrudeGeometry args={[wedgeShape, wedgeSettings]} />,
-    // Shift X,Y,Z by -0.5 to center the 0..1 shape coordinates within the -0.5..0.5 voxel space
+  wedge: {
+    geometry: <extrudeGeometry args={[wedgeShape, extrudeSettings]} />,
+    offset: [-0.5, -0.5, -0.5] as [number, number, number],
+  },
+  pie: {
+    geometry: <extrudeGeometry args={[pieShape, extrudeSettings]} />,
     offset: [-0.5, -0.5, -0.5] as [number, number, number],
   }
 };
@@ -48,7 +63,7 @@ const ShapeSpace = ({ shape }: ShapeSpaceProps) => {
           <group key={index} position={position} rotation={rotation}>
             <mesh position={geometry.offset}>
               {geometry.geometry}
-              <meshStandardMaterial color={"white"} />
+              <meshStandardMaterial color={"white"} flatShading/>
             </mesh>
           </group>
         );
@@ -58,5 +73,3 @@ const ShapeSpace = ({ shape }: ShapeSpaceProps) => {
 };
 
 export default ShapeSpace;
-
-

@@ -1,4 +1,4 @@
-export type SubshapeType = 'empty' | 'cube' | 'half' | 'wedge';
+export type SubshapeType = 'empty' | 'cube' | 'half' | 'wedge' | 'pie';
 export type Subshape = {
     type: SubshapeType;
     position: [number, number, number];
