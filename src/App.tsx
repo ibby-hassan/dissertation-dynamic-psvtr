@@ -1,6 +1,6 @@
 import { appscreen, menuSection, cnvsSection, cnvsCanvas, cnvsToolbar, resizerVertical, resizerHorizontal } from './App.css.ts';
 import { useState } from 'react';
-import { generateEmptyShape, type Shape, type SubshapeType } from './utils/shapeUtils';
+import { generateEmptyShape, type Shape, type SubshapeType, calculateGlobalRotation } from './utils/shapeUtils';
 import { useResizableLayout } from './utils/useResizableLayout';
 
 import CanvasToolbar from './components/CanvasToolbar.tsx';
@@ -26,39 +26,32 @@ const App = () => {
     });
   };
 
-  // --- Subshape Rotation (XYZ) ---
+  // --- Subshape Rotation (Global Logic) ---
   const updateSubshapeRotation = (index: number, axis: 'x' | 'y' | 'z', direction: number) => {
     setShapeState((prevShapeState) => {
       const newShapeState = [...prevShapeState];
       const targetShape = newShapeState[index - 1];
 
-      const HALF_PI = Math.PI / 2;
-      let newRotation = [...targetShape.rotation] as [number, number, number];
-      
-      const axisIdx = axis === 'x' ? 0 : axis === 'y' ? 1 : 2;
-      newRotation[axisIdx] += (direction * HALF_PI);
-
-      newShapeState[index - 1] = { ...targetShape, rotation: newRotation };
+      newShapeState[index - 1] = { ...targetShape, rotation: calculateGlobalRotation(targetShape.rotation, axis, direction) };
       return newShapeState;
     });
   };
 
-  // --- Whole Object Rotation (XYZ) ---
+  // --- Whole Object Rotation (Global Logic) ---
   const updateShapeRotation = (axis: 'x' | 'y' | 'z', direction: number) => {
     setShapeRotation(prev => {
-        const [x, y, z] = prev;
-        const step = (Math.PI / 2) * direction;
-        
-        if (axis === 'x') return [x + step, y, z];
-        if (axis === 'y') return [x, y + step, z];
-        if (axis === 'z') return [x, y, z + step];
-        return [x, y, z];
+        return calculateGlobalRotation(prev, axis, direction);
     });
   };
 
   // --- Reset Shape ---
   const resetShape = () => {
     setShapeState(generateEmptyShape());
+    setShapeRotation([0, 0, 0]);
+  };
+
+  // --- Reset Shape Rotation ---
+  const resetShapeRotation = () => {
     setShapeRotation([0, 0, 0]);
   };
 
