@@ -11,11 +11,12 @@ const App = () => {
   const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
   const [selectedSubshape, setSelectedSubshape] = useState<SubshapeType>('empty');
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [shapeRotation, setShapeRotation] = useState<[number, number, number]>([0, 0, 0]);
 
   // Resizable layout
   const { sidebarWidth, bottomHeight, startResizingSidebar, startResizingBottom } = useResizableLayout();
 
-  // Shape Manipulations
+  // --- Place a subshape ---
   const updateSubshapeType = (index: number, newType: SubshapeType) => {
     setShapeState((prevShapeState) => {
       const newShapeState = [...prevShapeState];
@@ -25,36 +26,39 @@ const App = () => {
     });
   };
 
-  const updateSubshapeRotation = (index: number, direction: 'up' | 'down' | 'left' | 'right') => {
+  // --- Subshape Rotation (XYZ) ---
+  const updateSubshapeRotation = (index: number, axis: 'x' | 'y' | 'z', direction: number) => {
     setShapeState((prevShapeState) => {
       const newShapeState = [...prevShapeState];
       const targetShape = newShapeState[index - 1];
 
       const HALF_PI = Math.PI / 2;
       let newRotation = [...targetShape.rotation] as [number, number, number];
-
-      switch (direction) {
-        case 'left':
-          newRotation[1] -= HALF_PI;
-          break;
-        case 'right':
-          newRotation[1] += HALF_PI;
-          break;
-        case 'up':
-          newRotation[2] += HALF_PI;
-          break;
-        case 'down':
-          newRotation[2] -= HALF_PI;
-          break;
-      }
+      
+      const axisIdx = axis === 'x' ? 0 : axis === 'y' ? 1 : 2;
+      newRotation[axisIdx] += (direction * HALF_PI);
 
       newShapeState[index - 1] = { ...targetShape, rotation: newRotation };
       return newShapeState;
     });
   };
 
+  // --- Whole Object Rotation ---
+  const updateShapeRotation = (axis: 'x' | 'y', direction: number) => {
+    setShapeRotation(prev => {
+        const [x, y, z] = prev;
+        const step = (Math.PI / 2) * direction;
+        
+        if (axis === 'x') return [x + step, y, z];
+        if (axis === 'y') return [x, y + step, z];
+        return [x, y, z];
+    });
+  };
+
+  // --- Reset Shape ---
   const resetShape = () => {
     setShapeState(generateEmptyShape());
+    setShapeRotation([0, 0, 0]);
   };
 
   return (
@@ -83,7 +87,7 @@ const App = () => {
         <section className={cnvsToolbar}>
           <CanvasToolbar
             onSubshapeClick={(index) => updateSubshapeType(index, selectedSubshape)}
-            onRotate={(index, dir) => updateSubshapeRotation(index, dir)}
+            onRotate={(index, axis, dir) => updateSubshapeRotation(index, axis, dir)}
             onHover={setHoveredIndex}
           />
         </section>

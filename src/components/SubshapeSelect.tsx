@@ -1,4 +1,9 @@
-import { subshapeSelect, index, icon, controlsContainer, rotateButton, posTop, posBottom, posLeft, posRight } from "./styles/SubshapeSelect.css.ts";
+import { 
+  subshapeSelect, index, icon, controlsContainer, rotateButton, 
+  btnX, btnY, btnZ,
+  posXLeft, posXRight, posYLeft, posYRight, posZLeft, posZRight,
+  rotCW, rotCCW
+} from "./styles/SubshapeSelect.css.ts";
 
 import arrowIcon from "../assets/arrow.png";
 
@@ -7,15 +12,14 @@ interface SubshapeSelectProps {
   onClick: () => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
-  onRotate?: (direction: 'up' | 'down' | 'left' | 'right') => void;
+  onRotate?: (axis: 'x' | 'y' | 'z', direction: number) => void;
 }
 
 const SubshapeSelect = ({ indexValue = -1, onClick, onMouseEnter, onMouseLeave, onRotate }: SubshapeSelectProps) => {
 
-  const handleRotate = (e: React.MouseEvent, dir: 'up' | 'down' | 'left' | 'right') => {
-    e.stopPropagation(); // Stop the click from selecting the shape type
-    console.log(`Rotate subshape ${indexValue}: ${dir}`);
-    if (onRotate) onRotate(dir);
+  const handleRotate = (e: React.MouseEvent, axis: 'x' | 'y' | 'z', dir: number) => {
+    e.stopPropagation(); 
+    if (onRotate) onRotate(axis, dir);
   };
 
   return (
@@ -28,20 +32,28 @@ const SubshapeSelect = ({ indexValue = -1, onClick, onMouseEnter, onMouseLeave, 
       </section>
 
       <div className={controlsContainer}>
-        <div className={`${rotateButton} ${posTop}`} onClick={(e) => handleRotate(e, 'up')}>
-          <img src={arrowIcon} alt="Rotate Up" width="100%" />
+        {/* --- X AXIS (Red) --- */}
+        <div className={`${rotateButton} ${btnX} ${posXLeft}`} onClick={(e) => handleRotate(e, 'x', -1)} title="X Axis CCW">
+          <img src={arrowIcon} className={rotCCW} alt="<" width="70%" />
+        </div>
+        <div className={`${rotateButton} ${btnX} ${posXRight}`} onClick={(e) => handleRotate(e, 'x', 1)} title="X Axis CW">
+          <img src={arrowIcon} className={rotCW} alt=">" width="70%" />
         </div>
 
-        <div className={`${rotateButton} ${posBottom}`} onClick={(e) => handleRotate(e, 'down')}>
-          <img src={arrowIcon} alt="Rotate Down" width="100%" />
+        {/* --- Y AXIS (Green) --- */}
+        <div className={`${rotateButton} ${btnY} ${posYLeft}`} onClick={(e) => handleRotate(e, 'y', -1)} title="Y Axis CCW">
+          <img src={arrowIcon} className={rotCCW} alt="<" width="70%" />
+        </div>
+        <div className={`${rotateButton} ${btnY} ${posYRight}`} onClick={(e) => handleRotate(e, 'y', 1)} title="Y Axis CW">
+          <img src={arrowIcon} className={rotCW} alt=">" width="70%" />
         </div>
 
-        <div className={`${rotateButton} ${posLeft}`} onClick={(e) => handleRotate(e, 'left')}>
-          <img src={arrowIcon} alt="Rotate Left" width="100%" />
+        {/* --- Z AXIS (Blue) --- */}
+        <div className={`${rotateButton} ${btnZ} ${posZLeft}`} onClick={(e) => handleRotate(e, 'z', -1)} title="Z Axis CCW">
+          <img src={arrowIcon} className={rotCCW} alt="<" width="70%" />
         </div>
-
-        <div className={`${rotateButton} ${posRight}`} onClick={(e) => handleRotate(e, 'right')}>
-          <img src={arrowIcon} alt="Rotate Right" width="100%" />
+        <div className={`${rotateButton} ${btnZ} ${posZRight}`} onClick={(e) => handleRotate(e, 'z', 1)} title="Z Axis CW">
+          <img src={arrowIcon} className={rotCW} alt=">" width="70%" />
         </div>
       </div>
 

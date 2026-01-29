@@ -6,6 +6,7 @@ import ShapeSpace from './ShapeSpace.tsx';
 import SceneUpdater from '../utils/SceneUpdater';
 import type { Shape } from '../utils/shapeUtils';
 import SubshapeIndicator from './SubshapeIndicator.tsx';
+import { OrbitControls } from '@react-three/drei';
 
 interface CanvasComponentProps {
   onReset: () => void;
@@ -32,7 +33,7 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex }: CanvasComponentProps)
         <SceneUpdater shape={shape} /> {/* Forces updates when shape changes */}
         <SubshapeIndicator hoveredIndex={hoveredIndex} />
 
-        {/* <axesHelper args={[2]} /> */}
+        <axesHelper args={[1.5]} />
         {/* <OrbitControls /> */}
       </Canvas>
     </div>

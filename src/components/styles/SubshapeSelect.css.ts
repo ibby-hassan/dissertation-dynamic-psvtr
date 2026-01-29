@@ -3,11 +3,9 @@ import { style } from "@vanilla-extract/css";
 export const subshapeSelect = style({
     position: "relative",
     backgroundColor: "#FED766",
-    height: "90%",       
+    height: "90%",        
     width: "100%",
     maxWidth: "11%",      
-
-    // Safety mins
     minHeight: "70px",
     borderRadius: "8px",
     border: "none",
@@ -22,6 +20,7 @@ export const index = style({
     padding: "5%",
     fontSize: "1rem",
     fontWeight: "bold",
+    pointerEvents: "none", // Click through text
 });
 
 export const icon = style({
@@ -29,40 +28,59 @@ export const icon = style({
     height: "100%",
 });
 
-// Container for the rotation arrow buttons
 export const controlsContainer = style({
     position: "absolute",
     top: 0,
     left: 0,
     width: "100%",
     height: "100%",
-    pointerEvents: "none", // Let clicks pass through to the main box...
-    opacity: 0,            // Hidden by default
+    pointerEvents: "none",
+    opacity: 0,            
     transition: "opacity 0.2s ease-in-out",
     selectors: {
         [`${subshapeSelect}:hover &`]: {
-            opacity: 1,    // Show on hover
+            opacity: 1,    
         }
     }
 });
 
 export const rotateButton = style({
     position: "absolute",
-    width: "20px",
-    height: "20px",
+    width: "24px",
+    height: "24px",
     cursor: "pointer",
-    pointerEvents: "auto", // ...but catch clicks on the buttons themselves
+    pointerEvents: "auto",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    opacity: 0.5,
-    transition: "opacity 0.1s",
+    borderRadius: "4px",
+    opacity: 0.8,
+    transition: "transform 0.1s, opacity 0.1s",
+    border: "1px solid rgba(0,0,0,0.1)",
     ':hover': {
-        opacity: 1
+        opacity: 1,
+        zIndex: 2
     }
 });
-// Button-specific positions
-export const posTop = style({ top: "2px", left: "50%", transform: "translateX(-50%) rotate(180deg)" }); 
-export const posBottom = style({ bottom: "2px", left: "50%", transform: "translateX(-50%)" }); // Default down
-export const posLeft = style({ left: "2px", top: "50%", transform: "translateY(-50%) rotate(90deg)" });
-export const posRight = style({ right: "2px", top: "50%", transform: "translateY(-50%) rotate(-90deg)" });
+
+// --- Axis Colors (RGB convention) ---
+export const btnX = style({ backgroundColor: "rgba(100, 150, 255, 0.9)" }); // Blue
+export const btnY = style({ backgroundColor: "rgba(100, 255, 100, 0.9)" }); // Green
+export const btnZ = style({ backgroundColor: "rgba(255, 100, 100, 0.9)" }); // Red
+
+// --- Positions (3 Rows, Left/Right columns) ---
+// Row 1: X
+export const posXLeft = style({ top: "2px", left: "2px" });
+export const posXRight = style({ top: "2px", right: "2px" });
+
+// Row 2: Y (Centered vertically)
+export const posYLeft = style({ top: "50%", left: "2px", transform: "translateY(-50%)" });
+export const posYRight = style({ top: "50%", right: "2px", transform: "translateY(-50%)" });
+
+// Row 3: Z
+export const posZLeft = style({ bottom: "2px", left: "2px" });
+export const posZRight = style({ bottom: "2px", right: "2px" });
+
+// Arrow rotations inside the buttons
+export const rotCW = style({ transform: "rotate(90deg)" }); // Point Right
+export const rotCCW = style({ transform: "rotate(-90deg)" }); // Point Left
