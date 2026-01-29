@@ -6,7 +6,6 @@ import ShapeSpace from './ShapeSpace.tsx';
 import SceneUpdater from '../utils/SceneUpdater';
 import type { Shape } from '../utils/shapeUtils';
 import SubshapeIndicator from './SubshapeIndicator.tsx';
-import { OrbitControls } from '@react-three/drei';
 import { useState } from 'react';
 
 interface CanvasComponentProps {
@@ -49,8 +48,7 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
         </group>
 
         <SceneUpdater dependencies={[shape, axisHelper]} />
-        {axisHelper ? <axesHelper args={[1.5]} /> : <></>}
-        {/* <OrbitControls /> */}
+        {axisHelper ? <axesHelper args={[1.5]} /> : null}
       </Canvas>
     </div>
   )
