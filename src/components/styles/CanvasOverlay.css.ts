@@ -62,10 +62,14 @@ export const actionButton = style({
 
 export const deleteAction = style({
   ':hover': {
-      backgroundColor: "#FFF0F0",
+      backgroundColor: "rgba(255, 100, 100, 0.2)",
       borderColor: "#FFCDCD",
   }
 });
+
+export const saveAction = style({});
+
+export const loadAction = style({});
 
 export const toggledAction = style({
   backgroundColor: "#e0e0e0",

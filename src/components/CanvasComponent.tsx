@@ -19,7 +19,7 @@ interface CanvasComponentProps {
 }
 
 const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotateObject, onResetShapeRotation }: CanvasComponentProps) => {
-  const [axisHelper, setAxisHelper] = useState(false);
+  const [axisHelper, setAxisHelper] = useState(true);
 
   const toggleAxisHelper = () => {
     setAxisHelper(!axisHelper);
@@ -43,13 +43,13 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
         <ambientLight intensity={1} />
         <directionalLight position={[10, 20, 5]} intensity={1.5} />
 
-        <group rotation={shapeRotation}>
+        <group rotation={shapeRotation} position={[1, 1, 1]}>
             <ShapeSpace shape={shape} />
             <SubshapeIndicator hoveredIndex={hoveredIndex} />
         </group>
 
         <SceneUpdater dependencies={[shape, axisHelper]} />
-        {axisHelper ? <axesHelper args={[1.5]} /> : <></>}
+        {axisHelper ? <axesHelper args={[2.5]} /> : null}
         {/* <OrbitControls /> */}
       </Canvas>
     </div>
