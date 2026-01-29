@@ -78,6 +78,10 @@ export const toggledAction = style({
 });
 
 // --- ROTATION ROWS ---
+export const resetAction = style({
+  alignSelf: "center",
+});
+
 export const rotationRow = style({
   display: "flex",
   alignItems: "center",

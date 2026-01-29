@@ -76,6 +76,7 @@ const App = () => {
             hoveredIndex={hoveredIndex}
             shapeRotation={shapeRotation}
             onRotateObject={updateShapeRotation}
+            onResetShapeRotation={resetShapeRotation}
           />
         </section>
         <div className={resizerHorizontal} onMouseDown={startResizingBottom} />
