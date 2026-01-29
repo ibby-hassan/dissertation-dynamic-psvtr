@@ -10,11 +10,13 @@ import MenuSection from './components/MenuSection.tsx';
 const App = () => {
   const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
   const [selectedSubshape, setSelectedSubshape] = useState<SubshapeType>('empty');
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [shapeRotation, setShapeRotation] = useState<[number, number, number]>([0, 0, 0]);
 
   // Resizable layout
   const { sidebarWidth, bottomHeight, startResizingSidebar, startResizingBottom } = useResizableLayout();
 
-  // Shape Manipulations
+  // --- Place a subshape ---
   const updateSubshapeType = (index: number, newType: SubshapeType) => {
     setShapeState((prevShapeState) => {
       const newShapeState = [...prevShapeState];
@@ -24,16 +26,40 @@ const App = () => {
     });
   };
 
-  // const updateSubshapeRotation = (index: number, newRotation: [number, number, number]) => {
-  //   setShapeState((prevShapeState) => {
-  //     const newShapeState = [...prevShapeState];
-  //     newShapeState[index - 1] = { ...newShapeState[index - 1], rotation: newRotation };
-  //     return newShapeState;
-  //   });
-  // };
+  // --- Subshape Rotation (XYZ) ---
+  const updateSubshapeRotation = (index: number, axis: 'x' | 'y' | 'z', direction: number) => {
+    setShapeState((prevShapeState) => {
+      const newShapeState = [...prevShapeState];
+      const targetShape = newShapeState[index - 1];
 
+      const HALF_PI = Math.PI / 2;
+      let newRotation = [...targetShape.rotation] as [number, number, number];
+      
+      const axisIdx = axis === 'x' ? 0 : axis === 'y' ? 1 : 2;
+      newRotation[axisIdx] += (direction * HALF_PI);
+
+      newShapeState[index - 1] = { ...targetShape, rotation: newRotation };
+      return newShapeState;
+    });
+  };
+
+  // --- Whole Object Rotation (XYZ) ---
+  const updateShapeRotation = (axis: 'x' | 'y' | 'z', direction: number) => {
+    setShapeRotation(prev => {
+        const [x, y, z] = prev;
+        const step = (Math.PI / 2) * direction;
+        
+        if (axis === 'x') return [x + step, y, z];
+        if (axis === 'y') return [x, y + step, z];
+        if (axis === 'z') return [x, y, z + step];
+        return [x, y, z];
+    });
+  };
+
+  // --- Reset Shape ---
   const resetShape = () => {
     setShapeState(generateEmptyShape());
+    setShapeRotation([0, 0, 0]);
   };
 
   return (
@@ -43,6 +69,7 @@ const App = () => {
         <MenuSection
           selectedShape={selectedSubshape}
           onSelectShape={setSelectedSubshape}
+
         />
       </aside>
       <div className={resizerVertical} onMouseDown={startResizingSidebar} />
@@ -50,13 +77,21 @@ const App = () => {
       <div className={cnvsSection} style={{ gridTemplateRows: `1fr auto ${bottomHeight}px` }}>
 
         <section className={cnvsCanvas}>
-          <CanvasComponent onReset={resetShape} shape={shapeState} />
+          <CanvasComponent
+            onReset={resetShape}
+            shape={shapeState}
+            hoveredIndex={hoveredIndex}
+            shapeRotation={shapeRotation}
+            onRotateObject={updateShapeRotation}
+          />
         </section>
         <div className={resizerHorizontal} onMouseDown={startResizingBottom} />
 
         <section className={cnvsToolbar}>
           <CanvasToolbar
             onSubshapeClick={(index) => updateSubshapeType(index, selectedSubshape)}
+            onRotate={(index, axis, dir) => updateSubshapeRotation(index, axis, dir)}
+            onHover={setHoveredIndex}
           />
         </section>
 

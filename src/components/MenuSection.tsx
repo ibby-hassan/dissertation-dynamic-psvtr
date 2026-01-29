@@ -8,7 +8,7 @@ interface MenuSectionProps {
 }
 
 const MenuSection = ({ selectedShape, onSelectShape }: MenuSectionProps) => {
-    const shapeTypes: SubshapeType[] = ['empty', 'cube', 'half', 'wedge'];
+    const shapeTypes: SubshapeType[] = ['empty', 'cube', 'half', 'wedge', 'pie'];
 
     return (
         <div className={menuSection}>
