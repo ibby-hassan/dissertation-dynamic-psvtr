@@ -7,20 +7,31 @@ import SceneUpdater from '../utils/SceneUpdater';
 import type { Shape } from '../utils/shapeUtils';
 import SubshapeIndicator from './SubshapeIndicator.tsx';
 import { OrbitControls } from '@react-three/drei';
+import { useState } from 'react';
 
 interface CanvasComponentProps {
   onReset: () => void;
   shape: Shape;
   hoveredIndex: number | null;
   shapeRotation: [number, number, number];
-  // UPDATED SIGNATURE
   onRotateObject: (axis: 'x' | 'y' | 'z', direction: number) => void;
 }
 
 const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotateObject }: CanvasComponentProps) => {
+  const [axisHelper, setAxisHelper] = useState(false);
+
+  const toggleAxisHelper = () => {
+    setAxisHelper(!axisHelper);
+  }
+
   return (
     <div className={canvasWrapper}>
-      <CanvasOverlay onReset={onReset} onRotateObject={onRotateObject} />
+      <CanvasOverlay 
+        onReset={onReset} 
+        onRotateObject={onRotateObject} 
+        onToggleAxisHelper={toggleAxisHelper}
+        isAxisVisible={axisHelper}
+      />
       <Canvas
         frameloop={"demand"}
         camera={{ zoom: 135, position: [3, 3, 3] }}
@@ -35,9 +46,9 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
             <SubshapeIndicator hoveredIndex={hoveredIndex} />
         </group>
 
-        <SceneUpdater shape={shape} /> 
-        <axesHelper args={[1.5]} />
-        <OrbitControls />
+        <SceneUpdater dependencies={[shape, axisHelper]} />
+        {axisHelper ? <axesHelper args={[1.5]} /> : <></>}
+        {/* <OrbitControls /> */}
       </Canvas>
     </div>
   )
