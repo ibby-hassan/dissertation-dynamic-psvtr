@@ -15,9 +15,10 @@ interface CanvasComponentProps {
   hoveredIndex: number | null;
   shapeRotation: [number, number, number];
   onRotateObject: (axis: 'x' | 'y' | 'z', direction: number) => void;
+  onResetShapeRotation: () => void;
 }
 
-const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotateObject }: CanvasComponentProps) => {
+const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotateObject, onResetShapeRotation }: CanvasComponentProps) => {
   const [axisHelper, setAxisHelper] = useState(false);
 
   const toggleAxisHelper = () => {
@@ -29,6 +30,7 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
       <CanvasOverlay 
         onReset={onReset} 
         onRotateObject={onRotateObject} 
+        onResetShapeRotation={onResetShapeRotation}
         onToggleAxisHelper={toggleAxisHelper}
         isAxisVisible={axisHelper}
       />

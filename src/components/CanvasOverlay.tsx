@@ -2,7 +2,7 @@ import {
   overlayContainer,
   menuSegment,
   segmentTitle,
-  actionGrid, actionButton, deleteAction, toggledAction,
+  actionGrid, actionButton, deleteAction, toggledAction, resetAction,
   rotationRow,
   rotBtn, rotLabel,
   rowX, rowY, rowZ,
@@ -15,15 +15,17 @@ import deleteIcon from "../assets/delete.png";
 import saveIcon from "../assets/save.png";
 import loadIcon from "../assets/load.png";
 import axisHelperIcon from "../assets/axis.png";
+import resetIcon from "../assets/reset.png";
 
 interface CanvasOverlayProps {
   onReset: () => void;
   onRotateObject: (axis: 'x' | 'y' | 'z', direction: number) => void;
   onToggleAxisHelper: () => void;
+  onResetShapeRotation: () => void;
   isAxisVisible: boolean;
 }
 
-const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, isAxisVisible }: CanvasOverlayProps) => {
+const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, onResetShapeRotation, isAxisVisible }: CanvasOverlayProps) => {
 
   const handleSave = () => console.log("Save functionality not implemented yet.");
   const handleLoad = () => console.log("Load functionality not implemented yet.");
@@ -63,6 +65,10 @@ const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, isAxisVisi
       {/* --- SHAPE ROTATION --- */}
       <div className={menuSegment}>
         <p className={segmentTitle}>Shape Rotation</p>
+
+        <button className={`${actionButton} ${resetAction}`} onClick={onResetShapeRotation} title="Reset">
+          <img src={resetIcon} className={iconAction} alt="Reset" />
+        </button>
 
         {/* X Axis Row */}
         <div className={`${rotationRow} ${rowX}`}>
