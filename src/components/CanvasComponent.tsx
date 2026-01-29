@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 
-import { canvasWrapper } from './styles/CanvasOverlay.css.ts';
+import { canvasWrapper } from './styles/CanvasComponent.css.ts';
 import CanvasOverlay from './CanvasOverlay';
 import ShapeSpace from './ShapeSpace.tsx';
 import SceneUpdater from '../utils/SceneUpdater';
@@ -12,14 +12,15 @@ interface CanvasComponentProps {
   onReset: () => void;
   shape: Shape;
   hoveredIndex: number | null;
+  shapeRotation: [number, number, number];
+  // UPDATED SIGNATURE
+  onRotateObject: (axis: 'x' | 'y' | 'z', direction: number) => void;
 }
 
-
-
-const CanvasComponent = ({ onReset, shape, hoveredIndex }: CanvasComponentProps) => {
+const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotateObject }: CanvasComponentProps) => {
   return (
     <div className={canvasWrapper}>
-      <CanvasOverlay onReset={onReset} />
+      <CanvasOverlay onReset={onReset} onRotateObject={onRotateObject} />
       <Canvas
         frameloop={"demand"}
         camera={{ zoom: 135, position: [3, 3, 3] }}
@@ -29,12 +30,14 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex }: CanvasComponentProps)
         <ambientLight intensity={1} />
         <directionalLight position={[10, 20, 5]} intensity={1.5} />
 
-        <ShapeSpace shape={shape} />
-        <SceneUpdater shape={shape} /> {/* Forces updates when shape changes */}
-        <SubshapeIndicator hoveredIndex={hoveredIndex} />
+        <group rotation={shapeRotation}>
+            <ShapeSpace shape={shape} />
+            <SubshapeIndicator hoveredIndex={hoveredIndex} />
+        </group>
 
+        <SceneUpdater shape={shape} /> 
         <axesHelper args={[1.5]} />
-        {/* <OrbitControls /> */}
+        <OrbitControls />
       </Canvas>
     </div>
   )

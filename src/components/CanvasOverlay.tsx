@@ -1,13 +1,97 @@
-import { overlayContainer, menuItem } from "./styles/CanvasOverlay.css.ts";
+import { 
+    overlayContainer, 
+    menuSegment, 
+    segmentTitle,
+    actionGrid, 
+    actionButton, 
+    deleteAction,
+    rotationRow,
+    rotBtn,
+    rotLabel,
+    rowX, rowY, rowZ,
+    iconCW, iconCCW, iconAction
+} from "./styles/CanvasOverlay.css.ts";
+
+// Importing Assets
+import arrowIcon from "../assets/arrow.png";
+import deleteIcon from "../assets/delete.png";
+import saveIcon from "../assets/save.png";
+import loadIcon from "../assets/load.png";
 
 interface CanvasOverlayProps {
     onReset: () => void;
+    onRotateObject: (axis: 'x' | 'y' | 'z', direction: number) => void;
 }
 
-const CanvasOverlay = ({ onReset }: CanvasOverlayProps) => {
+const CanvasOverlay = ({ onReset, onRotateObject }: CanvasOverlayProps) => {
+
+    const handleSave = () => console.log("Save functionality not implemented yet.");
+    const handleLoad = () => console.log("Load functionality not implemented yet.");
+
     return (
         <div className={overlayContainer}>
-            <button className={menuItem} onClick={onReset}>Clear Canvas</button>
+            
+            {/* --- SEGMENT 1: ACTIONS --- */}
+            <div className={menuSegment}>
+                <p className={segmentTitle}>Actions</p>
+                <div className={actionGrid}>
+                    <button 
+                        className={`${actionButton} ${deleteAction}`} 
+                        onClick={onReset} 
+                        title="Clear Canvas"
+                    >
+                        <img src={deleteIcon} className={iconAction} alt="Reset" />
+                    </button>
+                    
+                    <button className={actionButton} onClick={handleSave} title="Save Shape">
+                        <img src={saveIcon} className={iconAction} alt="Save" />
+                    </button>
+                    
+                    <button className={actionButton} onClick={handleLoad} title="Load Shape">
+                        <img src={loadIcon} className={iconAction} alt="Load" />
+                    </button>
+                </div>
+            </div>
+
+            {/* --- SEGMENT 2: SCENE ROTATION --- */}
+            <div className={menuSegment}>
+                <p className={segmentTitle}>Shape Rotation</p>
+                
+                {/* X Axis Row */}
+                <div className={`${rotationRow} ${rowX}`}>
+                    <button className={rotBtn} onClick={() => onRotateObject('x', -1)} title="Rotate X CCW">
+                         <img src={arrowIcon} className={iconCCW} alt="<" />
+                    </button>
+                    <span className={rotLabel}>X</span>
+                    <button className={rotBtn} onClick={() => onRotateObject('x', 1)} title="Rotate X CW">
+                         <img src={arrowIcon} className={iconCW} alt=">" />
+                    </button>
+                </div>
+
+                {/* Y Axis Row */}
+                <div className={`${rotationRow} ${rowY}`}>
+                    <button className={rotBtn} onClick={() => onRotateObject('y', -1)} title="Rotate Y CCW">
+                         <img src={arrowIcon} className={iconCCW} alt="<" />
+                    </button>
+                    <span className={rotLabel}>Y</span>
+                    <button className={rotBtn} onClick={() => onRotateObject('y', 1)} title="Rotate Y CW">
+                         <img src={arrowIcon} className={iconCW} alt=">" />
+                    </button>
+                </div>
+
+                {/* Z Axis Row */}
+                <div className={`${rotationRow} ${rowZ}`}>
+                    <button className={rotBtn} onClick={() => onRotateObject('z', -1)} title="Rotate Z CCW">
+                         <img src={arrowIcon} className={iconCCW} alt="<" />
+                    </button>
+                    <span className={rotLabel}>Z</span>
+                    <button className={rotBtn} onClick={() => onRotateObject('z', 1)} title="Rotate Z CW">
+                         <img src={arrowIcon} className={iconCW} alt=">" />
+                    </button>
+                </div>
+
+            </div>
+
         </div>
     );
 };

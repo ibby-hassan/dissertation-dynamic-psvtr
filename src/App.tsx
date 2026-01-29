@@ -43,14 +43,15 @@ const App = () => {
     });
   };
 
-  // --- Whole Object Rotation ---
-  const updateShapeRotation = (axis: 'x' | 'y', direction: number) => {
+  // --- Whole Object Rotation (XYZ) ---
+  const updateShapeRotation = (axis: 'x' | 'y' | 'z', direction: number) => {
     setShapeRotation(prev => {
         const [x, y, z] = prev;
         const step = (Math.PI / 2) * direction;
         
         if (axis === 'x') return [x + step, y, z];
         if (axis === 'y') return [x, y + step, z];
+        if (axis === 'z') return [x, y, z + step];
         return [x, y, z];
     });
   };
@@ -80,6 +81,8 @@ const App = () => {
             onReset={resetShape}
             shape={shapeState}
             hoveredIndex={hoveredIndex}
+            shapeRotation={shapeRotation}
+            onRotateObject={updateShapeRotation}
           />
         </section>
         <div className={resizerHorizontal} onMouseDown={startResizingBottom} />
