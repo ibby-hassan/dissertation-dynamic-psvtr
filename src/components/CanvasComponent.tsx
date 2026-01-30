@@ -32,6 +32,7 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
         onResetShapeRotation={onResetShapeRotation}
         onToggleAxisHelper={toggleAxisHelper}
         isAxisVisible={axisHelper}
+        shapeRotation={shapeRotation}
       />
       <Canvas
         frameloop={"demand"}

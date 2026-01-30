@@ -4,13 +4,13 @@ import {
   segmentTitle,
   actionGrid, actionButton, 
   deleteAction, toggledAction, resetAction, saveAction, loadAction,
-  rotationRow,
+  trackerLabel, rotationRow,
   rotBtn, rotLabel,
   rowX, rowY, rowZ,
   iconCW, iconCCW, iconAction
 } from "./styles/CanvasOverlay.css.ts";
+import { getMinRotation } from "../utils/shapeUtils";
 
-// Importing Assets
 import arrowIcon from "../assets/arrow.png";
 import deleteIcon from "../assets/delete.png";
 import saveIcon from "../assets/save.png";
@@ -25,12 +25,22 @@ interface CanvasOverlayProps {
   onToggleAxisHelper: () => void;
   onResetShapeRotation: () => void;
   isAxisVisible: boolean;
+  shapeRotation?: [number, number, number];
 }
 
-const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, onResetShapeRotation, isAxisVisible }: CanvasOverlayProps) => {
+const CanvasOverlay = ({ 
+  onReset,
+  onRotateObject,
+  onToggleAxisHelper,
+  onResetShapeRotation,
+  isAxisVisible,
+  shapeRotation = [0, 0, 0]
+}: CanvasOverlayProps) => {
 
   const handleSave = () => console.log("Save functionality not implemented yet.");
   const handleLoad = () => console.log("Load functionality not implemented yet.");
+
+  const rotationTracker = getMinRotation(shapeRotation);
 
   return (
     <div className={overlayContainer}>
@@ -75,6 +85,7 @@ const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, onResetSha
         <button className={`${actionButton} ${resetAction}`} onClick={onResetShapeRotation} title="Reset">
           <img src={resetIcon} className={iconAction} alt="Reset" />
         </button>
+        <p className={trackerLabel}>{rotationTracker}</p>
 
         {/* X Axis Row */}
         <div className={`${rotationRow} ${rowX}`}>

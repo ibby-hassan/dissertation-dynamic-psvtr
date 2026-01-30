@@ -20,7 +20,13 @@ const App = () => {
   const updateSubshapeType = (index: number, newType: SubshapeType) => {
     setShapeState((prevShapeState) => {
       const newShapeState = [...prevShapeState];
-      newShapeState[index - 1] = { ...newShapeState[index - 1], type: newType };
+
+      const newRotation = newType === 'empty' ? [0, 0, 0] : newShapeState[index - 1].rotation;
+      newShapeState[index - 1] = {
+        ...newShapeState[index - 1],
+        type: newType,
+        rotation: newRotation as [number, number, number]
+      };
       console.log(newShapeState);
       return newShapeState;
     });
