@@ -22,9 +22,10 @@ export const label = style({
     color: "#333",
     fontWeight: "bold",
     textTransform: "capitalize",
+    textAlign: "center",
+    width: "90%",
 });
 
 export const active = style({
     backgroundColor: "#DFA801",
-    border: "2px solid #8D6A01",
 });

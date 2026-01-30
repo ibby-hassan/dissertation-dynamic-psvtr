@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 export const menuSection = style({
     display: "flex",
     flexDirection: "column",
-    padding: "1rem",         // Standard padding
+    padding: "1rem",
     color: "#F4F4F8",
     alignItems: "center",
     height: "100%",
@@ -14,6 +14,18 @@ export const title = style({
     fontSize: "1.5rem",
     marginBottom: "1rem",
     textAlign: "center",
+});
+
+export const sectionLabel = style({
+    fontSize: "1rem",
+    marginTop: "1.5rem",
+    marginBottom: "0.5rem",
+    textAlign: "left",
+    width: "100%",
+    fontWeight: "600",
+    color: "#fff",
+    borderBottom: "1px solid rgba(255,255,255,0.3)",
+    paddingBottom: "0.2rem"
 });
 
 export const shapeGrid = style({
