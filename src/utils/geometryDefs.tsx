@@ -5,14 +5,12 @@ import type { JSX } from 'react';
 
 // --- 2D Shape Definitions ---
 
-// Wedge: Right-angled triangle
 const wedgeShape = new THREE.Shape();
 wedgeShape.moveTo(0, 0);
 wedgeShape.lineTo(1, 0);
 wedgeShape.lineTo(0, 1);
 wedgeShape.closePath();
 
-// Pie: Quarter circle
 const pieShape = new THREE.Shape();
 pieShape.moveTo(0, 0);
 pieShape.lineTo(1, 0);
@@ -25,6 +23,13 @@ longWedgeShape.moveTo(0, 0);
 longWedgeShape.lineTo(2, 0);
 longWedgeShape.lineTo(0, 1);
 longWedgeShape.closePath();
+
+const bigPieShape = new THREE.Shape();
+bigPieShape.moveTo(0, 0);
+bigPieShape.lineTo(2, 0);
+bigPieShape.absarc(0, 0, 2, 0, Math.PI / 2, false);
+bigPieShape.lineTo(0, 0);
+bigPieShape.closePath();
 
 // --- Extrusion Settings ---
 const extrudeSettings = {
@@ -61,6 +66,10 @@ export const SUBSHAPE_GEOMETRIES: Record<SubshapeType, GeometryConfig | null> = 
   },
   'long wedge': {
     geometry: <extrudeGeometry args={[longWedgeShape, extrudeSettings]} />,
+    offset: [-0.5, -0.5, -0.5],
+  },
+  'big pie': {
+    geometry: <extrudeGeometry args={[bigPieShape, extrudeSettings]} />,
     offset: [-0.5, -0.5, -0.5],
   }
 };
