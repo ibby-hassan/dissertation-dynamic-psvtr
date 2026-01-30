@@ -1,4 +1,4 @@
-import { indexToGrid } from '../utils/shapeUtils';
+import { indexToGrid } from '../utils/ShapeUtils';
 
 interface SubshapeIndicatorProps {
   hoveredIndex: number | null;

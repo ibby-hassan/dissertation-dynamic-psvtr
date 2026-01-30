@@ -4,7 +4,7 @@ import { canvasWrapper } from './styles/CanvasComponent.css.ts';
 import CanvasOverlay from './CanvasOverlay';
 import ShapeSpace from './ShapeSpace.tsx';
 import SceneUpdater from '../utils/SceneUpdater';
-import type { Shape } from '../utils/shapeUtils';
+import type { Shape } from '../utils/ShapeUtils';
 import SubshapeIndicator from './SubshapeIndicator.tsx';
 import { useState } from 'react';
 

@@ -9,7 +9,7 @@ import {
   rowX, rowY, rowZ,
   iconCW, iconCCW, iconAction
 } from "./styles/CanvasOverlay.css.ts";
-import { getMinRotation } from "../utils/shapeUtils";
+import { getMinRotation } from "../utils/ShapeUtils";
 
 import arrowIcon from "../assets/arrow.png";
 import deleteIcon from "../assets/delete.png";

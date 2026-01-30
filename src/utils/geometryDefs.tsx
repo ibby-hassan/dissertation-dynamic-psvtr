@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { SubshapeType } from './shapeUtils';
+import type { SubshapeType } from './ShapeUtils';
 import type { JSX } from 'react';
 
 
