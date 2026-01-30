@@ -16,7 +16,7 @@ const SubshapeIndicator = ({ hoveredIndex }: SubshapeIndicatorProps) => {
       <meshStandardMaterial 
         color="#FED766" 
         transparent 
-        opacity={0.3} 
+        opacity={0.2} 
         depthTest={false} 
       />
     </mesh>

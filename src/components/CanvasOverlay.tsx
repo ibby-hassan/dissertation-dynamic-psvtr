@@ -16,7 +16,8 @@ import deleteIcon from "../assets/delete.png";
 import saveIcon from "../assets/save.png";
 import loadIcon from "../assets/load.png";
 import axisHelperIcon from "../assets/axis.png";
-import resetIcon from "../assets/reset.png";
+import resetIcon from "../assets/reset.png"
+import screenshotIcon from "../assets/screenshot.png"
 
 interface CanvasOverlayProps {
   onReset: () => void;
@@ -59,6 +60,10 @@ const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, onResetSha
             onClick={() => onToggleAxisHelper()} title="Toggle Axis Helper"
           >
             <img src={axisHelperIcon} className={iconAction} alt="Axis Helper" />
+          </button>
+
+          <button className={actionButton} title="Screenshot">
+            <img src={screenshotIcon} className={iconAction} alt="Screenshot" />
           </button>
         </div>
       </div>

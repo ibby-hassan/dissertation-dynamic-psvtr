@@ -16,16 +16,39 @@ export const subshapeSelect = style({
     overflow: "hidden",
 });
 
-export const index = style({
-    padding: "5%",
-    fontSize: "1rem",
-    fontWeight: "bold",
-    pointerEvents: "none", // Click through text
+export const infoContainer = style({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginBottom: "5px",
+    pointerEvents: "none",
+    zIndex: 1,
+    height: "100%",
+    justifyContent: "space-between",
+    padding: "2%",
 });
 
-export const icon = style({
-    width: "100%",
-    height: "100%",
+export const index = style({
+    padding: "2px 4px",
+    fontSize: "1rem",
+    fontWeight: "bold",
+    pointerEvents: "none",
+    alignSelf: "flex-start", // Align number to top left
+});
+
+export const typeLabel = style({
+    fontSize: "0.8rem",
+    fontWeight: "600",
+    textTransform: "capitalize",
+    color: "#333",
+    margin: 0,
+});
+
+export const rotationLabel = style({
+    fontSize: "0.7rem",
+    fontFamily: "monospace",
+    color: "#555",
+    margin: 0,
 });
 
 export const controlsContainer = style({

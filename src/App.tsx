@@ -83,6 +83,7 @@ const App = () => {
 
         <section className={cnvsToolbar}>
           <CanvasToolbar
+            shape={shapeState}
             onSubshapeClick={(index) => updateSubshapeType(index, selectedSubshape)}
             onRotate={(index, axis, dir) => updateSubshapeRotation(index, axis, dir)}
             onHover={setHoveredIndex}
