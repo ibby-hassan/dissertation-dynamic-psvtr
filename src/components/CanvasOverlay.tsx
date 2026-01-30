@@ -24,6 +24,7 @@ interface CanvasOverlayProps {
   onRotateObject: (axis: 'x' | 'y' | 'z', direction: number) => void;
   onToggleAxisHelper: () => void;
   onResetShapeRotation: () => void;
+  onScreenshot: () => void;
   isAxisVisible: boolean;
   shapeRotation?: [number, number, number];
 }
@@ -33,6 +34,7 @@ const CanvasOverlay = ({
   onRotateObject,
   onToggleAxisHelper,
   onResetShapeRotation,
+  onScreenshot,
   isAxisVisible,
   shapeRotation = [0, 0, 0]
 }: CanvasOverlayProps) => {
@@ -72,7 +74,7 @@ const CanvasOverlay = ({
             <img src={axisHelperIcon} className={iconAction} alt="Axis Helper" />
           </button>
 
-          <button className={actionButton} title="Screenshot">
+          <button className={actionButton} onClick={onScreenshot} title="Screenshot">
             <img src={screenshotIcon} className={iconAction} alt="Screenshot" />
           </button>
         </div>

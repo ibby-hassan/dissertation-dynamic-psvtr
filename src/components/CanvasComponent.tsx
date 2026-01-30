@@ -7,6 +7,7 @@ import SceneUpdater from '../utils/SceneUpdater';
 import type { Shape } from '../utils/ShapeUtils';
 import SubshapeIndicator from './SubshapeIndicator.tsx';
 import { useState } from 'react';
+import ScreenshotHandler from '../utils/ScreenshotHandler';
 
 interface CanvasComponentProps {
   onReset: () => void;
@@ -19,9 +20,14 @@ interface CanvasComponentProps {
 
 const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotateObject, onResetShapeRotation }: CanvasComponentProps) => {
   const [axisHelper, setAxisHelper] = useState(true);
+  const [captureTrigger, setCaptureTrigger] = useState(false);
 
+  // Handler functions
   const toggleAxisHelper = () => {
     setAxisHelper(!axisHelper);
+  }
+  const handleScreenshot = () => {
+    setCaptureTrigger(true);
   }
 
   return (
@@ -31,6 +37,7 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
         onRotateObject={onRotateObject} 
         onResetShapeRotation={onResetShapeRotation}
         onToggleAxisHelper={toggleAxisHelper}
+        onScreenshot={handleScreenshot}
         isAxisVisible={axisHelper}
         shapeRotation={shapeRotation}
       />
@@ -39,9 +46,10 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
         camera={{ zoom: 135, position: [3, 3, 3] }}
         orthographic
         flat={true}
+        gl={{ preserveDrawingBuffer: true }}
       >
-        <ambientLight intensity={1} />
-        <directionalLight position={[10, 20, 5]} intensity={1.5} />
+        <ambientLight intensity={1.5} />
+        <directionalLight position={[10, 20, 5]} intensity={1} />
 
         <group rotation={shapeRotation} position={[1, 1, 1]}>
             <ShapeSpace shape={shape} />
@@ -49,7 +57,9 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
         </group>
 
         <SceneUpdater dependencies={[shape, axisHelper]} />
-        {axisHelper ? <axesHelper args={[2.5]} /> : null}
+        {axisHelper ? <axesHelper args={[2.5]} name="axes-helper" /> : null}
+
+        <ScreenshotHandler captureTrigger={captureTrigger} onComplete={() => setCaptureTrigger(false)} />
       </Canvas>
     </div>
   )
