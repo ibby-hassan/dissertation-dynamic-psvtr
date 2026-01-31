@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber';
+import { useState } from 'react';
 
 import { canvasWrapper } from './styles/CanvasComponent.css.ts';
 import CanvasOverlay from './CanvasOverlay';
@@ -6,8 +7,8 @@ import ShapeSpace from './ShapeSpace.tsx';
 import SceneUpdater from '../utils/SceneUpdater';
 import type { Shape } from '../utils/ShapeUtils';
 import SubshapeIndicator from './SubshapeIndicator.tsx';
-import { useState } from 'react';
 import ScreenshotHandler from '../utils/ScreenshotHandler';
+import SaveModal from './SaveModal'; // Import the new modal
 
 interface CanvasComponentProps {
   onReset: () => void;
@@ -20,15 +21,35 @@ interface CanvasComponentProps {
 
 const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotateObject, onResetShapeRotation }: CanvasComponentProps) => {
   const [axisHelper, setAxisHelper] = useState(true);
+  
+  // Screenshot State
   const [captureTrigger, setCaptureTrigger] = useState(false);
+  const [screenshotData, setScreenshotData] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Handler functions
   const toggleAxisHelper = () => {
     setAxisHelper(!axisHelper);
   }
-  const handleScreenshot = () => {
+  
+  const handleScreenshotClick = () => {
     setCaptureTrigger(true);
   }
+
+  const handleImageCaptured = (dataUrl: string) => {
+    setScreenshotData(dataUrl);
+    setIsModalOpen(true);
+  }
+
+  const handleConfirmDownload = (name: string) => {
+    if (screenshotData) {
+        const link = document.createElement('a');
+        link.setAttribute('download', `${name}.png`);
+        link.setAttribute('href', screenshotData);
+        link.click();
+    }
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={canvasWrapper}>
@@ -37,10 +58,11 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
         onRotateObject={onRotateObject} 
         onResetShapeRotation={onResetShapeRotation}
         onToggleAxisHelper={toggleAxisHelper}
-        onScreenshot={handleScreenshot}
+        onScreenshot={handleScreenshotClick}
         isAxisVisible={axisHelper}
         shapeRotation={shapeRotation}
       />
+
       <Canvas
         frameloop={"demand"}
         camera={{ zoom: 135, position: [3, 3, 3] }}
@@ -59,8 +81,19 @@ const CanvasComponent = ({ onReset, shape, hoveredIndex, shapeRotation, onRotate
         <SceneUpdater dependencies={[shape, axisHelper]} />
         {axisHelper ? <axesHelper args={[2.5]} name="axes-helper" /> : null}
 
-        <ScreenshotHandler captureTrigger={captureTrigger} onComplete={() => setCaptureTrigger(false)} />
+        <ScreenshotHandler 
+            captureTrigger={captureTrigger} 
+            onCaptured={handleImageCaptured}
+            onComplete={() => setCaptureTrigger(false)} 
+        />
       </Canvas>
+
+      <SaveModal 
+        isOpen={isModalOpen}
+        imageData={screenshotData}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmDownload}
+      />
     </div>
   )
 }
