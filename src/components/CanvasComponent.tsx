@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
+import { useState } from 'react';
 
 import { canvasWrapper } from './styles/CanvasComponent.css.ts';
 import CanvasOverlay from './CanvasOverlay';
@@ -46,6 +47,7 @@ const CanvasComponent = ({
         onDownloadClick={() => onInitiateCapture('download')}
         onSaveClick={() => onInitiateCapture('save')}
       />
+
       <Canvas
         frameloop={"demand"}
         camera={{ zoom: 135, position: [3, 3, 3] }}
@@ -53,8 +55,8 @@ const CanvasComponent = ({
         flat={true}
         gl={{ preserveDrawingBuffer: true }} // Required for screenshot
       >
-        <ambientLight intensity={1} />
-        <directionalLight position={[10, 20, 5]} intensity={1.5} />
+        <ambientLight intensity={1.5} />
+        <directionalLight position={[10, 20, 5]} intensity={1} />
 
         <group rotation={shapeRotation} position={[1, 1, 1]}>
           <ShapeSpace shape={shape} />
@@ -71,6 +73,13 @@ const CanvasComponent = ({
         />
 
       </Canvas>
+
+      <SaveModal 
+        isOpen={isModalOpen}
+        imageData={screenshotData}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmDownload}
+      />
     </div>
   )
 }

@@ -24,6 +24,7 @@ interface CanvasOverlayProps {
   onRotateObject: (axis: 'x' | 'y' | 'z', direction: number) => void;
   onToggleAxisHelper: () => void;
   onResetShapeRotation: () => void;
+  onScreenshot: () => void;
   isAxisVisible: boolean;
   shapeRotation?: [number, number, number];
   onDownloadClick: () => void;
