@@ -2,14 +2,14 @@ import {
   overlayContainer,
   menuSegment,
   segmentTitle,
-  actionGrid, actionButton, 
-  deleteAction, toggledAction, resetAction, saveAction, loadAction,
+  actionGrid, actionButton,
+  deleteAction, toggledAction, resetAction,
   trackerLabel, rotationRow,
   rotBtn, rotLabel,
   rowX, rowY, rowZ,
   iconCW, iconCCW, iconAction
 } from "./styles/CanvasOverlay.css.ts";
-import { getMinRotation } from "../utils/ShapeUtils";
+import { getMinRotation } from "../utils/ShapeUtils.ts";
 
 import arrowIcon from "../assets/arrow.png";
 import deleteIcon from "../assets/delete.png";
@@ -26,20 +26,19 @@ interface CanvasOverlayProps {
   onResetShapeRotation: () => void;
   isAxisVisible: boolean;
   shapeRotation?: [number, number, number];
+  onDownloadClick: () => void;
+  onSaveClick: () => void;
 }
 
-const CanvasOverlay = ({ 
+const CanvasOverlay = ({
   onReset,
-  onRotateObject,
+  onRotateObject, onResetShapeRotation,
   onToggleAxisHelper,
-  onResetShapeRotation,
-  isAxisVisible,
-  shapeRotation = [0, 0, 0]
+  onDownloadClick, onSaveClick,
+  isAxisVisible, shapeRotation = [0, 0, 0],
 }: CanvasOverlayProps) => {
 
-  const handleSave = () => console.log("Save functionality not implemented yet.");
   const handleLoad = () => console.log("Load functionality not implemented yet.");
-
   const rotationTracker = getMinRotation(shapeRotation);
 
   return (
@@ -57,7 +56,7 @@ const CanvasOverlay = ({
             <img src={deleteIcon} className={iconAction} alt="Reset" />
           </button>
 
-          <button className={actionButton} onClick={handleSave} title="Save Shape">
+          <button className={actionButton} onClick={onSaveClick} title="Save Shape">
             <img src={saveIcon} className={iconAction} alt="Save" />
           </button>
 
@@ -72,7 +71,7 @@ const CanvasOverlay = ({
             <img src={axisHelperIcon} className={iconAction} alt="Axis Helper" />
           </button>
 
-          <button className={actionButton} title="Screenshot">
+          <button className={actionButton} onClick={onDownloadClick} title="Screenshot">
             <img src={screenshotIcon} className={iconAction} alt="Screenshot" />
           </button>
         </div>

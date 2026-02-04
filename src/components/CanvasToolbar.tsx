@@ -1,6 +1,6 @@
 import { canvasToolbar } from "./styles/CanvasToolbar.css.ts";
 import SubshapeSelect from "./SubshapeSelect";
-import type { Shape } from "../utils/ShapeUtils"; 
+import type { Shape } from "../utils/ShapeUtils.ts";
 
 interface CanvasToolbarProps {
   shape: Shape;
@@ -14,18 +14,18 @@ const CanvasToolbar = ({ shape, onSubshapeClick, onHover, onRotate }: CanvasTool
   return (
     <div className={canvasToolbar}>
       {shape.map((subshape) => (
-        <SubshapeSelect 
-          key={subshape.index - 1} 
-          indexValue={subshape.index} 
+        <SubshapeSelect
+          key={subshape.index - 1}
+          indexValue={subshape.index}
           // Pass the dynamic data
           type={subshape.type}
           rotation={subshape.rotation}
-          
-          onClick={() => onSubshapeClick(subshape.index)} 
+
+          onClick={() => onSubshapeClick(subshape.index)}
           onMouseEnter={() => onHover(subshape.index)}
           onMouseLeave={() => onHover(null)}
           onRotate={(axis, dir) => onRotate(subshape.index, axis, dir)}
-      />
+        />
       ))}
     </div>
   )
