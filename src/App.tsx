@@ -76,15 +76,14 @@ const App = () => {
     setCaptureMode(null);
   };
 
-  // Step 4: User Confirms (Logic moved to Utils)
-  const handleConfirmCapture = () => {
+  const handleConfirmCapture = (name: string) => {
     if (!capturedImage) return;
 
     if (captureMode === 'download') {
-      downloadToPC(capturedImage);
+      downloadToPC(capturedImage, name);
     } 
     else if (captureMode === 'save') {
-      const result = saveToLocalStorage(shapeState, capturedImage);
+      const result = saveToLocalStorage(shapeState, capturedImage, name);
       alert(result.message);
     }
     // Cleanup
@@ -92,7 +91,6 @@ const App = () => {
     setCapturedImage(null);
     setCaptureMode(null);
   };
-
   return (
     <div className={appscreen}>
       

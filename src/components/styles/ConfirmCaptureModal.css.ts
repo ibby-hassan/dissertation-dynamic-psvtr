@@ -38,12 +38,29 @@ export const imagePreview = style({
   borderRadius: "8px",
   border: "1px solid #eee",
   backgroundColor: "#f9f9f9",
+  maxHeight: "30vh", 
+  objectFit: "contain"
+});
+
+export const inputField = style({
+  width: "100%",
+  padding: "10px 12px",
+  borderRadius: "6px",
+  border: "1px solid #ccc",
+  fontSize: "1rem",
+  boxSizing: "border-box",
+  transition: "border-color 0.2s",
+  ':focus': {
+    outline: "none",
+    borderColor: "#009FB7",
+    boxShadow: "0 0 0 2px rgba(0, 159, 183, 0.2)",
+  }
 });
 
 export const buttonGroup = style({
   display: "flex",
   gap: "10px",
-  marginTop: "10px",
+  marginTop: "5px",
 });
 
 export const baseButton = style({

@@ -1,16 +1,20 @@
 import type { Shape } from "./ShapeUtils";
 
-export function downloadToPC(dataUrl: string) {
+export function downloadToPC(dataUrl: string, filename: string) {
     const link = document.createElement('a');
-    link.setAttribute('download', `PSVTR-Shape-${Date.now()}.png`);
+
+    const PNGify = filename.endsWith('.png') ? filename : `${filename}.png`;
+    
+    link.setAttribute('download', PNGify);
     link.setAttribute('href', dataUrl);
     link.click();
     link.remove();
 };
 
-export function saveToLocalStorage(shape: Shape, dataUrl: string): { success: boolean; message: string } {
+export function saveToLocalStorage(shape: Shape, dataUrl: string, name: string): { success: boolean; message: string } {
     const saveObject = {
         id: Date.now(),
+        name: name,
         date: new Date().toISOString(),
         shape: shape,
         image: dataUrl
