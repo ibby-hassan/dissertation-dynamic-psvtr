@@ -1,6 +1,5 @@
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
-import { useState } from 'react';
 
 import { canvasWrapper } from './styles/CanvasComponent.css.ts';
 import CanvasOverlay from './CanvasOverlay';
@@ -73,13 +72,6 @@ const CanvasComponent = ({
         />
 
       </Canvas>
-
-      <SaveModal 
-        isOpen={isModalOpen}
-        imageData={screenshotData}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleConfirmDownload}
-      />
     </div>
   )
 }
