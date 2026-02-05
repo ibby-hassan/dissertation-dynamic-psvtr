@@ -5,9 +5,9 @@ import {
 } from "./styles/LoadMenu.css.ts";
 
 import { useState, useEffect } from "react";
-import type { Shape } from "../utils/shapeUtils.ts";
-import { fetchLocalSaves, deleteLocalSave, renameLocalSave, type SaveObject } from "../utils/IOUtils.ts";
-import LoadMenuSavedShape from "./LoadMenuSavedShape";
+import type { Shape } from "../utils/shapeUtils";
+import { fetchLocalSaves, deleteLocalSave, renameLocalSave, type SaveObject } from "../utils/ioUtils";
+import LoadMenuSavedShape from "./LoadMenuSavedShape.tsx";
 import ConfirmCaptureModal from "./ConfirmCaptureModal.tsx";
 
 import ascendingImg from "../assets/ascending.png";

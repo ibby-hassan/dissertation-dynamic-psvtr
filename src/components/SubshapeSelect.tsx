@@ -5,8 +5,7 @@ import {
   rotCW, rotCCW,
   infoContainer, typeLabel, rotationLabel
 } from "./styles/SubshapeSelect.css.ts";
-import type { SubshapeType } from "../utils/shapeUtils.ts";
-import { getMinRotation } from "../utils/shapeUtils.ts";
+import { type SubshapeType, getMinRotation } from "../utils/shapeUtils";
 
 import arrowIcon from "../assets/arrow.png";
 

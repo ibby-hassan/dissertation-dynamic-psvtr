@@ -1,8 +1,8 @@
 import { appscreen, menuSection, cnvsSection, cnvsCanvas, cnvsToolbar, resizerVertical, resizerHorizontal } from './App.css.ts';
 import { useState } from 'react';
-import { generateEmptyShape, type Shape, type SubshapeType, calculateGlobalRotation } from './utils/shapeUtils.ts';
-import { useResizableLayout } from './utils/UseResizableLayout';
-import { downloadToPC, saveToLocalStorage } from './utils/IOUtils.ts';
+import { generateEmptyShape, type Shape, type SubshapeType, calculateGlobalRotation } from './utils/shapeUtils';
+import { useResizableLayout } from './utils/useResizableLayout';
+import { downloadToPC, saveToLocalStorage } from './utils/ioUtils';
 
 import CanvasToolbar from './components/CanvasToolbar.tsx';
 import CanvasComponent from './components/CanvasComponent.tsx';

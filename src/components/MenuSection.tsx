@@ -1,6 +1,6 @@
 import { menuSection, title, shapeGrid, sectionLabel } from "./styles/MenuSection.css.ts";
 import ShapeSelect from "./ShapeSelect";
-import type { SubshapeType } from "../utils/shapeUtils.ts";
+import type { SubshapeType } from "../utils/shapeUtils";
 
 interface MenuSectionProps {
   selectedShape: SubshapeType;
