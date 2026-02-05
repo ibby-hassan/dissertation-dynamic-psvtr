@@ -4,16 +4,16 @@ export const cardContainer = style({
   display: "flex",
   flexDirection: "column",
   backgroundColor: "white",
-  borderRadius: "8px",
+  borderRadius: "12px",
   overflow: "hidden",
   cursor: "pointer",
   border: "2px solid transparent",
   transition: "all 0.2s ease-in-out",
-  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-  position: "relative", // Needed for absolute positioning of buttons
+  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+  position: "relative",
   ':hover': {
-    transform: "translateY(-2px)",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
+    transform: "translateY(-4px)",
+    boxShadow: "0 8px 16px rgba(0,0,0,0.12)",
   }
 });
 
@@ -25,9 +25,10 @@ export const selected = style({
 export const thumbnail = style({
   width: "100%",
   aspectRatio: "16 / 9",
-  objectFit: "contain",
+  objectFit: "cover",
   backgroundColor: "#f4f4f8",
   borderBottom: "1px solid #eee",
+  flexShrink: 0,
 });
 
 export const infoSection = style({

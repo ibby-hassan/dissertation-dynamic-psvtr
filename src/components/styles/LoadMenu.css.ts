@@ -6,12 +6,13 @@ export const menuOverlay = style({
   left: 0,
   width: "100vw",
   height: "100vh",
-  backgroundColor: "rgba(245, 245, 250, 0.98)", // Almost opaque background
+  backgroundColor: "rgba(245, 245, 250, 0.98)",
   zIndex: 2000,
   display: "flex",
   flexDirection: "column",
   padding: "2rem",
   boxSizing: "border-box",
+  overflow: "hidden",
 });
 
 export const header = style({
@@ -46,7 +47,7 @@ export const sortButton = style({
   color: "#555",
   display: "flex",
   alignItems: "center",
-  gap: "8px", // Increased gap slightly for the icon
+  gap: "8px",
   transition: "all 0.2s",
   ':hover': {
       backgroundColor: "#f9f9f9",
@@ -72,10 +73,18 @@ export const gridContainer = style({
   flex: 1,
   overflowY: "auto",
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-  gap: "1.5rem",
-  padding: "0.5rem", // Padding for shadow / outline visibility
+  gridTemplateColumns: "repeat(auto-fill, minmax(175px, 1fr))",
+  gridAutoRows: "max-content", 
+  gap: "1rem",
+  padding: "0.5rem", 
   alignContent: "start",
+
+  selectors: {
+    '&::-webkit-scrollbar': { width: '8px' },
+    '&::-webkit-scrollbar-track': { background: '#f1f1f1' },
+    '&::-webkit-scrollbar-thumb': { background: '#ccc', borderRadius: '4px' },
+    '&::-webkit-scrollbar-thumb:hover': { background: '#009FB7' }
+  }
 });
 
 export const emptyState = style({
