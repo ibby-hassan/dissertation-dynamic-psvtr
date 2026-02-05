@@ -1,8 +1,8 @@
-import { 
-  cardContainer, selected, thumbnail, infoSection, 
-  shapeName, timestamp, deleteButton, editButton 
+import {
+  cardContainer, selected, thumbnail, infoSection,
+  shapeName, timestamp, deleteButton, editButton
 } from "./styles/LoadMenuSavedShape.css.ts";
-import type { SaveObject } from "../utils/IOUtils.ts";
+import type { SaveObject } from "../utils/ioUtils";
 import editIcon from "../assets/edit.png";
 
 interface LoadMenuSavedShapeProps {
@@ -28,8 +28,8 @@ const LoadMenuSavedShape = ({ data, isSelected, onClick, onDelete, onRename }: L
   };
 
   return (
-    <div 
-      className={`${cardContainer} ${isSelected ? selected : ''}`} 
+    <div
+      className={`${cardContainer} ${isSelected ? selected : ''}`}
       onClick={onClick}
     >
       <div className={editButton} onClick={handleRenameClick} title="Rename Shape">
