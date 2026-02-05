@@ -33,7 +33,7 @@ const App = () => {
   /* HANDLERS */
   // --- Subshape Logic ---
   const updateSubshapeType = (index: number, newType: SubshapeType) => {
-    setShapeState((prevShapeState) => {
+    setShapeState((prevShapeState: Shape) => {
       const newShapeState = [...prevShapeState];
       const newRotation = newType === 'empty' ? [0, 0, 0] : newShapeState[index - 1].rotation;
       newShapeState[index - 1] = {
@@ -46,7 +46,7 @@ const App = () => {
   };
 
   const updateSubshapeRotation = (index: number, axis: 'x' | 'y' | 'z', direction: number) => {
-    setShapeState((prevShapeState) => {
+    setShapeState((prevShapeState: Shape) => {
       const newShapeState = [...prevShapeState];
       const targetShape = newShapeState[index - 1];
       newShapeState[index - 1] = { ...targetShape, rotation: calculateGlobalRotation(targetShape.rotation, axis, direction) };
