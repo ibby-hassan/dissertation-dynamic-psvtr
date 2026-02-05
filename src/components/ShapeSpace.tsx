@@ -1,4 +1,4 @@
-import type { Shape, Subshape } from '../utils/shapeUtils';
+import type { Shape, Subshape } from '../utils/ShapeUtils';
 import { SUBSHAPE_GEOMETRIES } from '../utils/geometryDefs';
 
 interface ShapeSpaceProps {

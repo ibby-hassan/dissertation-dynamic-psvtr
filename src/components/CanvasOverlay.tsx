@@ -2,20 +2,22 @@ import {
   overlayContainer,
   menuSegment,
   segmentTitle,
-  actionGrid, actionButton, deleteAction, toggledAction, resetAction,
-  rotationRow,
+  actionGrid, actionButton,
+  deleteAction, toggledAction, resetAction,
+  trackerLabel, rotationRow,
   rotBtn, rotLabel,
   rowX, rowY, rowZ,
   iconCW, iconCCW, iconAction
 } from "./styles/CanvasOverlay.css.ts";
+import { getMinRotation } from "../utils/ShapeUtils.ts";
 
-// Importing Assets
 import arrowIcon from "../assets/arrow.png";
 import deleteIcon from "../assets/delete.png";
 import saveIcon from "../assets/save.png";
 import loadIcon from "../assets/load.png";
 import axisHelperIcon from "../assets/axis.png";
-import resetIcon from "../assets/reset.png";
+import resetIcon from "../assets/reset.png"
+import screenshotIcon from "../assets/screenshot.png"
 
 interface CanvasOverlayProps {
   onReset: () => void;
@@ -23,12 +25,21 @@ interface CanvasOverlayProps {
   onToggleAxisHelper: () => void;
   onResetShapeRotation: () => void;
   isAxisVisible: boolean;
+  shapeRotation?: [number, number, number];
+  onDownloadClick: () => void;
+  onSaveClick: () => void;
+  onLoadClick: () => void;
 }
 
-const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, onResetShapeRotation, isAxisVisible }: CanvasOverlayProps) => {
+const CanvasOverlay = ({
+  onReset,
+  onRotateObject, onResetShapeRotation,
+  onToggleAxisHelper,
+  onDownloadClick, onSaveClick, onLoadClick,
+  isAxisVisible, shapeRotation = [0, 0, 0],
+}: CanvasOverlayProps) => {
 
-  const handleSave = () => console.log("Save functionality not implemented yet.");
-  const handleLoad = () => console.log("Load functionality not implemented yet.");
+  const rotationTracker = getMinRotation(shapeRotation);
 
   return (
     <div className={overlayContainer}>
@@ -45,11 +56,11 @@ const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, onResetSha
             <img src={deleteIcon} className={iconAction} alt="Reset" />
           </button>
 
-          <button className={actionButton} onClick={handleSave} title="Save Shape">
+          <button className={actionButton} onClick={onSaveClick} title="Save Shape">
             <img src={saveIcon} className={iconAction} alt="Save" />
           </button>
 
-          <button className={actionButton} onClick={handleLoad} title="Load Shape">
+          <button className={actionButton} onClick={onLoadClick} title="Load Shape">
             <img src={loadIcon} className={iconAction} alt="Load" />
           </button>
 
@@ -58,6 +69,10 @@ const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, onResetSha
             onClick={() => onToggleAxisHelper()} title="Toggle Axis Helper"
           >
             <img src={axisHelperIcon} className={iconAction} alt="Axis Helper" />
+          </button>
+
+          <button className={actionButton} onClick={onDownloadClick} title="Screenshot">
+            <img src={screenshotIcon} className={iconAction} alt="Screenshot" />
           </button>
         </div>
       </div>
@@ -69,6 +84,7 @@ const CanvasOverlay = ({ onReset, onRotateObject, onToggleAxisHelper, onResetSha
         <button className={`${actionButton} ${resetAction}`} onClick={onResetShapeRotation} title="Reset">
           <img src={resetIcon} className={iconAction} alt="Reset" />
         </button>
+        <p className={trackerLabel}>{rotationTracker}</p>
 
         {/* X Axis Row */}
         <div className={`${rotationRow} ${rowX}`}>

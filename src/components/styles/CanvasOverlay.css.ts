@@ -62,10 +62,14 @@ export const actionButton = style({
 
 export const deleteAction = style({
   ':hover': {
-      backgroundColor: "#FFF0F0",
+      backgroundColor: "rgba(255, 100, 100, 0.2)",
       borderColor: "#FFCDCD",
   }
 });
+
+export const saveAction = style({});
+
+export const loadAction = style({});
 
 export const toggledAction = style({
   backgroundColor: "#e0e0e0",
@@ -80,6 +84,19 @@ export const toggledAction = style({
 // --- ROTATION ROWS ---
 export const resetAction = style({
   alignSelf: "center",
+});
+
+export const trackerLabel = style({
+    fontSize: "0.8rem",
+    fontFamily: "monospace",
+    color: "#555",
+    textAlign: "center",
+    marginBottom: "8px",
+    fontWeight: "bold",
+    backgroundColor: "#f9f9f9",
+    borderRadius: "4px",
+    padding: "2px 0",
+    border: "1px solid #eee"
 });
 
 export const rotationRow = style({
@@ -122,6 +139,6 @@ export const rowY = style({ backgroundColor: "rgba(100, 255, 100, 0.2)" }); // G
 export const rowZ = style({ backgroundColor: "rgba(255, 100, 100, 0.2)" }); // Red tint
 
 // Helper for icon rotation
-export const iconCW = style({ transform: "rotate(90deg)", width: "30%", aspectRatio: "1 / 1", opacity: 0.7 });
-export const iconCCW = style({ transform: "rotate(-90deg)", width: "30%", aspectRatio: "1 / 1", opacity: 0.7 });
+export const iconCW = style({ transform: "rotate(90deg)", width: "25%", aspectRatio: "1 / 1", opacity: 0.7 });
+export const iconCCW = style({ transform: "rotate(-90deg)", width: "25%", aspectRatio: "1 / 1", opacity: 0.7 });
 export const iconAction = style({ width: "60%", opacity: 0.8 });

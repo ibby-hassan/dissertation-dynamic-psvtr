@@ -29,7 +29,7 @@ export const cnvsSection = style({
 export const cnvsCanvas = style({
     width: "100%",
     height: "100%", // Fill the grid cell
-    backgroundColor: "#F4F4F8",
+    backgroundColor: "#FFFFFF",
     position: "relative",
     overflow: "hidden",
 });

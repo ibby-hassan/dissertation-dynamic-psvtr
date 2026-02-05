@@ -1,24 +1,35 @@
 import * as THREE from 'three';
-import type { SubshapeType } from './shapeUtils';
+import type { SubshapeType } from './ShapeUtils';
 import type { JSX } from 'react';
 
 
 // --- 2D Shape Definitions ---
 
-// Wedge: Right-angled triangle
 const wedgeShape = new THREE.Shape();
 wedgeShape.moveTo(0, 0);
 wedgeShape.lineTo(1, 0);
 wedgeShape.lineTo(0, 1);
 wedgeShape.closePath();
 
-// Pie: Quarter circle
 const pieShape = new THREE.Shape();
 pieShape.moveTo(0, 0);
 pieShape.lineTo(1, 0);
 pieShape.absarc(0, 0, 1, 0, Math.PI / 2, false);
 pieShape.lineTo(0, 0);
 pieShape.closePath();
+
+const longWedgeShape = new THREE.Shape();
+longWedgeShape.moveTo(0, 0);
+longWedgeShape.lineTo(2, 0);
+longWedgeShape.lineTo(0, 1);
+longWedgeShape.closePath();
+
+const bigPieShape = new THREE.Shape();
+bigPieShape.moveTo(0, 0);
+bigPieShape.lineTo(2, 0);
+bigPieShape.absarc(0, 0, 2, 0, Math.PI / 2, false);
+bigPieShape.lineTo(0, 0);
+bigPieShape.closePath();
 
 // --- Extrusion Settings ---
 const extrudeSettings = {
@@ -36,25 +47,29 @@ export interface GeometryConfig {
 // --- Main Registry ---
 export const SUBSHAPE_GEOMETRIES: Record<SubshapeType, GeometryConfig | null> = {
   empty: null,
-  
   cube: {
     geometry: <boxGeometry args={[1, 1, 1]} />,
     offset: [0, 0, 0],
   },
-  
   half: {
     geometry: <boxGeometry args={[1, 0.5, 1]} />,
     offset: [0, -0.25, 0],
   },
-  
   wedge: {
     geometry: <extrudeGeometry args={[wedgeShape, extrudeSettings]} />,
     // Center the 0..1 coordinates to -0.5..0.5
     offset: [-0.5, -0.5, -0.5],
   },
-  
   pie: {
     geometry: <extrudeGeometry args={[pieShape, extrudeSettings]} />,
+    offset: [-0.5, -0.5, -0.5],
+  },
+  'long wedge': {
+    geometry: <extrudeGeometry args={[longWedgeShape, extrudeSettings]} />,
+    offset: [-0.5, -0.5, -0.5],
+  },
+  'big pie': {
+    geometry: <extrudeGeometry args={[bigPieShape, extrudeSettings]} />,
     offset: [-0.5, -0.5, -0.5],
   }
 };

@@ -1,35 +1,42 @@
 import { 
-  subshapeSelect, index, icon, controlsContainer, rotateButton, 
+  subshapeSelect, index, controlsContainer, rotateButton, 
   btnX, btnY, btnZ,
   posXLeft, posXRight, posYLeft, posYRight, posZLeft, posZRight,
-  rotCW, rotCCW
+  rotCW, rotCCW,
+  infoContainer, typeLabel, rotationLabel
 } from "./styles/SubshapeSelect.css.ts";
+import type { SubshapeType } from "../utils/ShapeUtils.ts";
+import { getMinRotation } from "../utils/ShapeUtils.ts";
 
 import arrowIcon from "../assets/arrow.png";
 
 interface SubshapeSelectProps {
   indexValue: number;
+  type: SubshapeType;
+  rotation: [number, number, number];
   onClick: () => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   onRotate?: (axis: 'x' | 'y' | 'z', direction: number) => void;
 }
 
-const SubshapeSelect = ({ indexValue = -1, onClick, onMouseEnter, onMouseLeave, onRotate }: SubshapeSelectProps) => {
+const SubshapeSelect = ({ indexValue = -1, type, rotation, onClick, onMouseEnter, onMouseLeave, onRotate }: SubshapeSelectProps) => {
 
   const handleRotate = (e: React.MouseEvent, axis: 'x' | 'y' | 'z', dir: number) => {
     e.stopPropagation(); 
     if (onRotate) onRotate(axis, dir);
   };
 
+  const rotationTracker = getMinRotation(rotation);
+
   return (
     <div className={subshapeSelect} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       
-      <p className={index}>{indexValue}</p>
-      
-      <section className={icon}>
-        {/* 3D Preview or Icon goes here */}
-      </section>
+      <div className={infoContainer}>
+        <p className={index}>{indexValue}</p>
+        <p className={typeLabel}>{type}</p>
+        <p className={rotationLabel}>{rotationTracker}</p>
+      </div>
 
       <div className={controlsContainer}>
         {/* --- X AXIS (Red) --- */}
