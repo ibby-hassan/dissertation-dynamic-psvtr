@@ -11,15 +11,17 @@ const SubshapeIndicator = ({ hoveredIndex }: SubshapeIndicatorProps) => {
   const position = indexToGrid(hoveredIndex);
 
   return (
-    <mesh position={position}>
-      <boxGeometry args={[1,1,1]} />
-      <meshStandardMaterial 
-        color="#FED766" 
-        transparent 
-        opacity={0.2} 
-        depthTest={false} 
-      />
-    </mesh>
+    <group position={[-0.5, -0.5, -0.5]}>
+      <mesh position={position}>
+        <boxGeometry args={[1,1,1]} />
+        <meshStandardMaterial 
+          color="#FED766" 
+          transparent 
+          opacity={0.2} 
+          depthTest={false} 
+        />
+      </mesh>
+    </group>
   );
 };
 
