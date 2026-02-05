@@ -1,12 +1,12 @@
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 
-import { canvasWrapper } from './styles/CanvasComponent.css.ts';
+import { canvasWrapper } from './styles/CanvasComponent.css';
 import CanvasOverlay from './CanvasOverlay';
-import ShapeSpace from './ShapeSpace.tsx';
+import ShapeSpace from './ShapeSpace';
 import SceneUpdater from '../utils/SceneUpdater';
-import CaptureHandler from '../utils/CaptureHandler.tsx';
-import SubshapeIndicator from './SubshapeIndicator.tsx';
+import CaptureHandler from '../utils/CaptureHandler';
+import SubshapeIndicator from './SubshapeIndicator';
 import type { Shape } from '../utils/shapeUtils';
 
 interface CanvasComponentProps {

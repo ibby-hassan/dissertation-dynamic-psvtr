@@ -61,15 +61,20 @@ export const actionButton = style({
 });
 
 export const deleteAction = style({
-  ':hover': {
-      backgroundColor: "rgba(255, 100, 100, 0.2)",
-      borderColor: "#FFCDCD",
-  }
+  ':hover': { backgroundColor: "rgba(255, 100, 100, 0.2)" }
 });
 
-export const saveAction = style({});
+export const saveAction = style({
+  ':hover': { backgroundColor: "rgba(100, 255, 100, 0.2)" }
+});
 
-export const loadAction = style({});
+export const loadAction = style({
+  ':hover': { backgroundColor: "rgba(100, 100, 255, 0.2)" }
+});
+
+export const downloadAction = style({
+  ':hover': { backgroundColor: "rgba(225, 225, 0, 0.2)" }
+});
 
 export const toggledAction = style({
   backgroundColor: "#e0e0e0",
@@ -134,7 +139,7 @@ export const rotLabel = style({
 });
 
 // Specific Colors (Using the same palette as SubshapeSelect)
-export const rowX = style({ backgroundColor: "rgba(100, 150, 255, 0.2)" }); // Blue tint
+export const rowX = style({ backgroundColor: "rgba(100, 100, 255, 0.2)" }); // Blue tint
 export const rowY = style({ backgroundColor: "rgba(100, 255, 100, 0.2)" }); // Green tint
 export const rowZ = style({ backgroundColor: "rgba(255, 100, 100, 0.2)" }); // Red tint
 

@@ -3,12 +3,12 @@ import {
   menuSegment,
   segmentTitle,
   actionGrid, actionButton,
-  deleteAction, toggledAction, resetAction,
+  deleteAction, toggledAction, resetAction, saveAction, loadAction, downloadAction,
   trackerLabel, rotationRow,
   rotBtn, rotLabel,
   rowX, rowY, rowZ,
   iconCW, iconCCW, iconAction
-} from "./styles/CanvasOverlay.css.ts";
+} from "./styles/CanvasOverlay.css";
 import { getMinRotation } from "../utils/shapeUtils";
 
 import arrowIcon from "../assets/arrow.png";
@@ -56,11 +56,11 @@ const CanvasOverlay = ({
             <img src={deleteIcon} className={iconAction} alt="Reset" />
           </button>
 
-          <button className={actionButton} onClick={onSaveClick} title="Save Shape">
+          <button className={`${actionButton} ${saveAction}`} onClick={onSaveClick} title="Save Shape">
             <img src={saveIcon} className={iconAction} alt="Save" />
           </button>
 
-          <button className={actionButton} onClick={onLoadClick} title="Load Shape">
+          <button className={`${actionButton} ${loadAction}`} onClick={onLoadClick} title="Load Shape">
             <img src={loadIcon} className={iconAction} alt="Load" />
           </button>
 
@@ -71,7 +71,7 @@ const CanvasOverlay = ({
             <img src={axisHelperIcon} className={iconAction} alt="Axis Helper" />
           </button>
 
-          <button className={actionButton} onClick={onDownloadClick} title="Screenshot">
+          <button className={`${actionButton} ${downloadAction}`} onClick={onDownloadClick} title="Screenshot">
             <img src={screenshotIcon} className={iconAction} alt="Screenshot" />
           </button>
         </div>
