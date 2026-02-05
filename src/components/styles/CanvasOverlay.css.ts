@@ -79,7 +79,6 @@ export const downloadAction = style({
 export const toggledAction = style({
   backgroundColor: "#e0e0e0",
   borderColor: "#ccc",
-  boxShadow: "inset 0 2px 4px rgba(0,0,0,0.1)", // Inset shadow creates "pressed" look
   transform: "translateY(1px)", 
   ':hover': {
     backgroundColor: "#d0d0d0",
