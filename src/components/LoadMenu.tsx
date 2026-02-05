@@ -5,8 +5,9 @@ import {
 
 import { useState, useEffect } from "react";
 import type { Shape } from "../utils/ShapeUtils";
-import { fetchLocalSaves, deleteLocalSave, type SaveObject } from "../utils/IOUtils.ts";
+import { fetchLocalSaves, deleteLocalSave, renameLocalSave, type SaveObject } from "../utils/IOUtils.ts";
 import LoadMenuSavedShape from "./LoadMenuSavedShape";
+import ConfirmCaptureModal from "./ConfirmCaptureModal.tsx";
 
 interface LoadMenuProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ interface LoadMenuProps {
 const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
   const [saves, setSaves] = useState<SaveObject[]>([]);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [renameTarget, setRenameTarget] = useState<SaveObject | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -25,7 +27,7 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
     }
   }, [isOpen]);
 
-  const handleConfirm = () => {
+  const handleConfirmLoad = () => {
     if (selectedId === null) return;
     const selectedSave = saves.find(s => s.id === selectedId);
     if (selectedSave) {
@@ -45,10 +47,32 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
     }
   };
 
+  const handleRenameInit = (save: SaveObject) => {
+    setRenameTarget(save);
+  };
+
+  const handleRenameConfirm = (newName: string) => {
+    if (renameTarget) {
+      const updatedList = renameLocalSave(renameTarget.id, newName);
+      setSaves(updatedList);
+      setRenameTarget(null);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className={menuOverlay}>
+      {/* Rename Modal */}
+      <ConfirmCaptureModal 
+        isOpen={!!renameTarget}
+        imageData={renameTarget?.image || null}
+        mode="rename"
+        initialName={renameTarget?.name}
+        onConfirm={handleRenameConfirm}
+        onCancel={() => setRenameTarget(null)}
+      />
+
       <div className={header}>
         <h2 className={title}>Load Saved Shape</h2>
       </div>
@@ -64,6 +88,7 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
               isSelected={selectedId === save.id}
               onClick={() => setSelectedId(save.id)}
               onDelete={() => handleDelete(save.id)}
+              onRename={() => handleRenameInit(save)}
             />
           ))
         )}
@@ -73,7 +98,7 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
         <button className={cancelBtn} onClick={onClose}>Cancel</button>
         <button 
           className={loadBtn} 
-          onClick={handleConfirm}
+          onClick={handleConfirmLoad}
           disabled={selectedId === null}
         >
           Load Selected

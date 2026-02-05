@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   modalOverlay,
   modalContent,
@@ -10,18 +10,33 @@ import {
 interface ConfirmCaptureModalProps {
   isOpen: boolean;
   imageData: string | null;
-  mode: 'download' | 'save' | null;
+  mode: 'download' | 'save' | 'rename' | null;
+  initialName?: string;
   onConfirm: (name: string) => void;
   onCancel: () => void;
 }
 
-const ConfirmCaptureModal = ({ isOpen, imageData, mode, onConfirm, onCancel }: ConfirmCaptureModalProps) => {
+const ConfirmCaptureModal = ({ isOpen, imageData, mode, initialName, onConfirm, onCancel }: ConfirmCaptureModalProps) => {
   const [shapeName, setShapeName] = useState("Untitled Shape");
+
+  useEffect(() => {
+    if (isOpen) {
+        setShapeName(initialName || "Untitled Shape");
+    }
+  }, [isOpen, initialName]);
 
   if (!isOpen || !imageData || !mode) return null;
 
-  const actionText = mode === 'download' ? 'Download' : 'Save';
-  const titleText = mode === 'download' ? 'Download Screenshot' : 'Save to Library';
+  let actionText = 'Save';
+  let titleText = 'Save to Library';
+
+  if (mode === 'download') {
+      actionText = 'Download';
+      titleText = 'Download Screenshot';
+  } else if (mode === 'rename') {
+      actionText = 'Update';
+      titleText = 'Rename Shape';
+  }
 
   return (
     <div className={modalOverlay}>

@@ -5,7 +5,6 @@ interface SubshapeIndicatorProps {
 }
 
 const SubshapeIndicator = ({ hoveredIndex }: SubshapeIndicatorProps) => {
-  // If nothing is hovered, don't put anything in the scene
   if (hoveredIndex === null) return null;
 
   const position = indexToGrid(hoveredIndex);
