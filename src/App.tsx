@@ -1,6 +1,6 @@
 import { appscreen, menuSection, cnvsSection, cnvsCanvas, cnvsToolbar, resizerVertical, resizerHorizontal } from './App.css.ts';
 import { useState } from 'react';
-import { generateEmptyShape, type Shape, type SubshapeType, calculateGlobalRotation } from './utils/ShapeUtils.ts';
+import { generateEmptyShape, type Shape, type SubshapeType, calculateGlobalRotation } from './utils/shapeUtils.ts';
 import { useResizableLayout } from './utils/UseResizableLayout';
 import { downloadToPC, saveToLocalStorage } from './utils/IOUtils.ts';
 
@@ -88,7 +88,7 @@ const App = () => {
 
     if (captureMode === 'download') {
       downloadToPC(capturedImage, name);
-    } 
+    }
     else if (captureMode === 'save') {
       const result = saveToLocalStorage(shapeState, capturedImage, name);
       alert(result.message);
@@ -106,16 +106,16 @@ const App = () => {
 
   const handleConfirmLoad = (loadedShape: Shape) => {
     setShapeState(loadedShape);
-    setShapeRotation([0, 0, 0]); 
+    setShapeRotation([0, 0, 0]);
     setIsLoadMenuOpen(false);
   };
 
   /* COMPONENT */
   return (
     <div className={appscreen}>
-      
+
       {/* MODALS */}
-      <ConfirmCaptureModal 
+      <ConfirmCaptureModal
         isOpen={isModalOpen}
         imageData={capturedImage}
         mode={captureMode}
@@ -123,7 +123,7 @@ const App = () => {
         onCancel={handleCancelCapture}
       />
 
-      <LoadMenu 
+      <LoadMenu
         isOpen={isLoadMenuOpen}
         onClose={() => setIsLoadMenuOpen(false)}
         onLoadShape={handleConfirmLoad}

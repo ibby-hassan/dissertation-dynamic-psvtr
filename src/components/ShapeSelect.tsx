@@ -1,5 +1,5 @@
 import { shapeSelect, label, active } from "./styles/ShapeSelect.css.ts";
-import type { SubshapeType } from "../utils/ShapeUtils.ts";
+import type { SubshapeType } from "../utils/shapeUtils.ts";
 
 interface ShapeSelectProps {
   type: SubshapeType;

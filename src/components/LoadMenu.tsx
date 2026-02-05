@@ -1,11 +1,11 @@
-import { 
-  menuOverlay, header, title, gridContainer, emptyState, 
+import {
+  menuOverlay, header, title, gridContainer, emptyState,
   footer, loadBtn, cancelBtn,
   sortControls, sortButton, activeSort, sortIcon
 } from "./styles/LoadMenu.css.ts";
 
 import { useState, useEffect } from "react";
-import type { Shape } from "../utils/ShapeUtils";
+import type { Shape } from "../utils/shapeUtils.ts";
 import { fetchLocalSaves, deleteLocalSave, renameLocalSave, type SaveObject } from "../utils/IOUtils.ts";
 import LoadMenuSavedShape from "./LoadMenuSavedShape";
 import ConfirmCaptureModal from "./ConfirmCaptureModal.tsx";
@@ -49,7 +49,7 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
     if (confirmDelete) {
       const updatedList = deleteLocalSave(id);
       setSaves(updatedList);
-      
+
       if (selectedId === id) {
         setSelectedId(null);
       }
@@ -95,7 +95,7 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
   return (
     <div className={menuOverlay}>
       {/* Rename Modal */}
-      <ConfirmCaptureModal 
+      <ConfirmCaptureModal
         isOpen={!!renameTarget}
         imageData={renameTarget?.image || null}
         mode="rename"
@@ -106,34 +106,34 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
 
       <div className={header}>
         <h2 className={title}>Load Saved Shape</h2>
-        
+
         {/* Sort Controls */}
         <div className={sortControls}>
-          <button 
+          <button
             className={`${sortButton} ${sortField === 'name' ? activeSort : ''}`}
             onClick={() => handleSort('name')}
             title="Sort by Name"
           >
-            Name 
+            Name
             {sortField === 'name' && (
-              <img 
-                src={sortOrder === 'asc' ? ascendingImg : descendingImg} 
-                className={sortIcon} 
-                alt={sortOrder === 'asc' ? "Ascending" : "Descending"} 
+              <img
+                src={sortOrder === 'asc' ? ascendingImg : descendingImg}
+                className={sortIcon}
+                alt={sortOrder === 'asc' ? "Ascending" : "Descending"}
               />
             )}
           </button>
-          <button 
+          <button
             className={`${sortButton} ${sortField === 'date' ? activeSort : ''}`}
             onClick={() => handleSort('date')}
             title="Sort by Date"
           >
-            Date 
+            Date
             {sortField === 'date' && (
-              <img 
-                src={sortOrder === 'asc' ? ascendingImg : descendingImg} 
-                className={sortIcon} 
-                alt={sortOrder === 'asc' ? "Ascending" : "Descending"} 
+              <img
+                src={sortOrder === 'asc' ? ascendingImg : descendingImg}
+                className={sortIcon}
+                alt={sortOrder === 'asc' ? "Ascending" : "Descending"}
               />
             )}
           </button>
@@ -159,8 +159,8 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
 
       <div className={footer}>
         <button className={cancelBtn} onClick={onClose}>Cancel</button>
-        <button 
-          className={loadBtn} 
+        <button
+          className={loadBtn}
           onClick={handleConfirmLoad}
           disabled={selectedId === null}
         >

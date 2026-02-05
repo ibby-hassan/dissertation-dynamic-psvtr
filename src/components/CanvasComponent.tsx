@@ -1,6 +1,5 @@
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
-import { OrbitControls } from '@react-three/drei';
 
 import { canvasWrapper } from './styles/CanvasComponent.css.ts';
 import CanvasOverlay from './CanvasOverlay';
@@ -8,7 +7,7 @@ import ShapeSpace from './ShapeSpace.tsx';
 import SceneUpdater from '../utils/SceneUpdater';
 import CaptureHandler from '../utils/CaptureHandler.tsx';
 import SubshapeIndicator from './SubshapeIndicator.tsx';
-import type { Shape } from '../utils/ShapeUtils.ts';
+import type { Shape } from '../utils/shapeUtils.ts';
 
 interface CanvasComponentProps {
   onReset: () => void;
@@ -73,8 +72,6 @@ const CanvasComponent = ({
           captureTrigger={captureTrigger}
           onCaptured={onCaptureComplete}
         />
-
-        {/* <OrbitControls /> */}
 
       </Canvas>
     </div>
