@@ -8,5 +8,4 @@ export default defineConfig({
     react(),
     vanillaExtractPlugin()
   ],
-  base: '/dissertation-dynamic-psvtr/',
 })
