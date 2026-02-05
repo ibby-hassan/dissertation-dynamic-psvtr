@@ -8,8 +8,11 @@ import CanvasToolbar from './components/CanvasToolbar.tsx';
 import CanvasComponent from './components/CanvasComponent.tsx';
 import MenuSection from './components/MenuSection.tsx';
 import ConfirmCaptureModal from './components/ConfirmCaptureModal.tsx';
+import LoadMenu from './components/LoadMenu.tsx';
 
 const App = () => {
+
+  /* STATES */
   const [shapeState, setShapeState] = useState<Shape>(generateEmptyShape());
   const [selectedSubshape, setSelectedSubshape] = useState<SubshapeType>('empty');
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -21,9 +24,13 @@ const App = () => {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // --- Load Menu State ---
+  const [isLoadMenuOpen, setIsLoadMenuOpen] = useState(false);
+
   // --- Resizable Layout ---
   const { sidebarWidth, bottomHeight, startResizingSidebar, startResizingBottom } = useResizableLayout();
 
+  /* HANDLERS */
   // --- Subshape Logic ---
   const updateSubshapeType = (index: number, newType: SubshapeType) => {
     setShapeState((prevShapeState) => {
@@ -86,14 +93,28 @@ const App = () => {
       const result = saveToLocalStorage(shapeState, capturedImage, name);
       alert(result.message);
     }
-    // Cleanup
+
     setIsModalOpen(false);
     setCapturedImage(null);
     setCaptureMode(null);
   };
+
+  // --- Load Logic ---
+  const handleLoadClick = () => {
+    setIsLoadMenuOpen(true);
+  };
+
+  const handleConfirmLoad = (loadedShape: Shape) => {
+    setShapeState(loadedShape);
+    setShapeRotation([0, 0, 0]); 
+    setIsLoadMenuOpen(false);
+  };
+
+  /* COMPONENT */
   return (
     <div className={appscreen}>
       
+      {/* MODALS */}
       <ConfirmCaptureModal 
         isOpen={isModalOpen}
         imageData={capturedImage}
@@ -102,6 +123,13 @@ const App = () => {
         onCancel={handleCancelCapture}
       />
 
+      <LoadMenu 
+        isOpen={isLoadMenuOpen}
+        onClose={() => setIsLoadMenuOpen(false)}
+        onLoadShape={handleConfirmLoad}
+      />
+
+      {/* MAIN APP */}
       <aside className={menuSection} style={{ width: `${sidebarWidth}px` }}>
         <MenuSection
           selectedShape={selectedSubshape}
@@ -123,6 +151,7 @@ const App = () => {
             captureTrigger={captureTrigger}
             onCaptureComplete={handleCaptureComplete}
             onInitiateCapture={initiateCapture}
+            onLoadClick={handleLoadClick}
           />
         </section>
         <div className={resizerHorizontal} onMouseDown={startResizingBottom} />

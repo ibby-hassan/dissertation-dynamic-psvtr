@@ -28,17 +28,17 @@ interface CanvasOverlayProps {
   shapeRotation?: [number, number, number];
   onDownloadClick: () => void;
   onSaveClick: () => void;
+  onLoadClick: () => void;
 }
 
 const CanvasOverlay = ({
   onReset,
   onRotateObject, onResetShapeRotation,
   onToggleAxisHelper,
-  onDownloadClick, onSaveClick,
+  onDownloadClick, onSaveClick, onLoadClick,
   isAxisVisible, shapeRotation = [0, 0, 0],
 }: CanvasOverlayProps) => {
 
-  const handleLoad = () => console.log("Load functionality not implemented yet.");
   const rotationTracker = getMinRotation(shapeRotation);
 
   return (
@@ -60,7 +60,7 @@ const CanvasOverlay = ({
             <img src={saveIcon} className={iconAction} alt="Save" />
           </button>
 
-          <button className={actionButton} onClick={handleLoad} title="Load Shape">
+          <button className={actionButton} onClick={onLoadClick} title="Load Shape">
             <img src={loadIcon} className={iconAction} alt="Load" />
           </button>
 

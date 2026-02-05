@@ -19,6 +19,7 @@ interface CanvasComponentProps {
   captureTrigger: boolean;
   onCaptureComplete: (data: string) => void;
   onInitiateCapture: (mode: 'download' | 'save') => void;
+  onLoadClick: () => void;
 }
 
 const CanvasComponent = ({
@@ -29,7 +30,7 @@ const CanvasComponent = ({
   onRotateObject,
   onResetShapeRotation,
   captureTrigger,
-  onCaptureComplete, onInitiateCapture
+  onCaptureComplete, onInitiateCapture, onLoadClick
 }: CanvasComponentProps) => {
 
   const [axisHelper, setAxisHelper] = useState(true);
@@ -45,6 +46,7 @@ const CanvasComponent = ({
         shapeRotation={shapeRotation}
         onDownloadClick={() => onInitiateCapture('download')}
         onSaveClick={() => onInitiateCapture('save')}
+        onLoadClick={onLoadClick}
       />
 
       <Canvas

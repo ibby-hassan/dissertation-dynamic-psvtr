@@ -1,89 +1,89 @@
 import { style } from "@vanilla-extract/css";
 
 export const subshapeSelect = style({
-    position: "relative",
-    backgroundColor: "#FED766",
-    height: "90%",        
-    width: "100%",
-    maxWidth: "11%",      
-    minHeight: "70px",
-    borderRadius: "8px",
-    border: "none",
-    cursor: "pointer",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    overflow: "hidden",
+  position: "relative",
+  backgroundColor: "#FED766",
+  height: "90%",        
+  width: "100%",
+  maxWidth: "11%",      
+  minHeight: "70px",
+  borderRadius: "8px",
+  border: "none",
+  cursor: "pointer",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  overflow: "hidden",
 });
 
 export const infoContainer = style({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginBottom: "5px",
-    pointerEvents: "none",
-    zIndex: 1,
-    height: "100%",
-    justifyContent: "space-between",
-    padding: "2%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  marginBottom: "5px",
+  pointerEvents: "none",
+  zIndex: 1,
+  height: "100%",
+  justifyContent: "space-between",
+  padding: "2%",
 });
 
 export const index = style({
-    padding: "2px 4px",
-    fontSize: "1rem",
-    fontWeight: "bold",
-    pointerEvents: "none",
-    alignSelf: "flex-start", // Align number to top left
+  padding: "2px 4px",
+  fontSize: "1rem",
+  fontWeight: "bold",
+  pointerEvents: "none",
+  alignSelf: "flex-start", // Align number to top left
 });
 
 export const typeLabel = style({
-    fontSize: "0.8rem",
-    fontWeight: "600",
-    textTransform: "capitalize",
-    color: "#333",
-    margin: 0,
+  fontSize: "0.8rem",
+  fontWeight: "600",
+  textTransform: "capitalize",
+  color: "#333",
+  margin: 0,
 });
 
 export const rotationLabel = style({
-    fontSize: "0.7rem",
-    fontFamily: "monospace",
-    color: "#555",
-    margin: 0,
+  fontSize: "0.7rem",
+  fontFamily: "monospace",
+  color: "#555",
+  margin: 0,
 });
 
 export const controlsContainer = style({
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    pointerEvents: "none",
-    opacity: 0,            
-    transition: "opacity 0.2s ease-in-out",
-    selectors: {
-        [`${subshapeSelect}:hover &`]: {
-            opacity: 1,    
-        }
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  pointerEvents: "none",
+  opacity: 0,            
+  transition: "opacity 0.2s ease-in-out",
+  selectors: {
+    [`${subshapeSelect}:hover &`]: {
+        opacity: 1,    
     }
+  }
 });
 
 export const rotateButton = style({
-    position: "absolute",
-    width: "24px",
-    height: "24px",
-    cursor: "pointer",
-    pointerEvents: "auto",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "4px",
-    opacity: 0.8,
-    transition: "transform 0.1s, opacity 0.1s",
-    border: "1px solid rgba(0,0,0,0.1)",
-    ':hover': {
-        opacity: 1,
-        zIndex: 2
-    }
+  position: "absolute",
+  width: "24px",
+  height: "24px",
+  cursor: "pointer",
+  pointerEvents: "auto",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: "4px",
+  opacity: 0.8,
+  transition: "transform 0.1s, opacity 0.1s",
+  border: "1px solid rgba(0,0,0,0.1)",
+  ':hover': {
+    opacity: 1,
+    zIndex: 2
+  }
 });
 
 

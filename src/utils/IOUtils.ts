@@ -1,8 +1,17 @@
 import type { Shape } from "./ShapeUtils";
 
+export interface SaveObject {
+    id: number;
+    name: string;
+    date: string;
+    shape: Shape;
+    image: string;
+}
+
+const STORAGE_KEY = 'psvtr_saves';
+
 export function downloadToPC(dataUrl: string, filename: string) {
     const link = document.createElement('a');
-
     const PNGify = filename.endsWith('.png') ? filename : `${filename}.png`;
     
     link.setAttribute('download', PNGify);
@@ -12,7 +21,7 @@ export function downloadToPC(dataUrl: string, filename: string) {
 };
 
 export function saveToLocalStorage(shape: Shape, dataUrl: string, name: string): { success: boolean; message: string } {
-    const saveObject = {
+    const saveObject: SaveObject = {
         id: Date.now(),
         name: name,
         date: new Date().toISOString(),
@@ -21,12 +30,38 @@ export function saveToLocalStorage(shape: Shape, dataUrl: string, name: string):
     };
 
     try {
-        const existingSaves = JSON.parse(localStorage.getItem('psvtr_saves') || '[]');
+        const existingSaves = fetchLocalSaves();
         existingSaves.push(saveObject);
-        localStorage.setItem('psvtr_saves', JSON.stringify(existingSaves));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(existingSaves));
         return { success: true, message: "Shape saved successfully!" };
     } catch (e) {
         console.error("Storage failed", e);
         return { success: false, message: "Failed to save: Local Storage might be full." };
+    }
+}
+
+export function fetchLocalSaves(): SaveObject[] {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (!stored) return [];
+        
+        const parsedSaves: SaveObject[] = JSON.parse(stored);
+        // Sort by date descending (newest first)
+        return parsedSaves.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    } catch (e) {
+        console.error("Failed to load saves", e);
+        return [];
+    }
+}
+
+export function deleteLocalSave(id: number): SaveObject[] {
+    try {
+        const existingSaves = fetchLocalSaves();
+        const updatedSaves = existingSaves.filter(save => save.id !== id);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSaves));
+        return updatedSaves;
+    } catch (e) {
+        console.error("Failed to delete save", e);
+        return [];
     }
 }
