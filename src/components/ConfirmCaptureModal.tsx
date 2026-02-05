@@ -17,11 +17,11 @@ interface ConfirmCaptureModalProps {
 }
 
 const ConfirmCaptureModal = ({ isOpen, imageData, mode, initialName, onConfirm, onCancel }: ConfirmCaptureModalProps) => {
-  const [shapeName, setShapeName] = useState("Untitled Shape");
+  const [shapeName, setShapeName] = useState("psvtr-shape");
 
   useEffect(() => {
     if (isOpen) {
-        setShapeName(initialName || "Untitled Shape");
+        setShapeName(initialName || "psvtr-shape");
     }
   }, [isOpen, initialName]);
 

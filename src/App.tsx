@@ -90,7 +90,7 @@ const App = () => {
       downloadToPC(capturedImage, name);
     }
     else if (captureMode === 'save') {
-      const result = saveToLocalStorage(shapeState, capturedImage, name);
+      const result = saveToLocalStorage(shapeState, capturedImage, name, shapeRotation);
       alert(result.message);
     }
 
@@ -104,9 +104,9 @@ const App = () => {
     setIsLoadMenuOpen(true);
   };
 
-  const handleConfirmLoad = (loadedShape: Shape) => {
-    setShapeState(loadedShape);
-    setShapeRotation([0, 0, 0]);
+  const handleConfirmLoad = (loadedSave: any) => {
+    setShapeState(loadedSave.shape);
+    setShapeRotation(loadedSave.globalRotation || [0, 0, 0]); 
     setIsLoadMenuOpen(false);
   };
 

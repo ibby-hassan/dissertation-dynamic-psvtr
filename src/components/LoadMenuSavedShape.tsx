@@ -1,9 +1,11 @@
 import {
   cardContainer, selected, thumbnail, infoSection,
-  shapeName, timestamp, deleteButton, editButton
+  shapeName, timestamp, deleteButton, editButton, downloadButton
 } from "./styles/LoadMenuSavedShape.css.ts";
-import type { SaveObject } from "../utils/ioUtils";
+import { type SaveObject, downloadToPC } from "../utils/ioUtils";
+
 import editIcon from "../assets/edit.png";
+import downloadIcon from "../assets/save.png"; // Using save.png as requested
 
 interface LoadMenuSavedShapeProps {
   data: SaveObject;
@@ -17,26 +19,17 @@ const LoadMenuSavedShape = ({ data, isSelected, onClick, onDelete, onRename }: L
   const dateObj = new Date(data.date);
   const dateStr = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-  const handleDeleteClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onDelete();
-  };
-
-  const handleRenameClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onRename();
-  };
-
   return (
-    <div
-      className={`${cardContainer} ${isSelected ? selected : ''}`}
-      onClick={onClick}
-    >
-      <div className={editButton} onClick={handleRenameClick} title="Rename Shape">
+    <div className={`${cardContainer} ${isSelected ? selected : ''}`} onClick={onClick}>
+      <div className={downloadButton} onClick={(e) => {e.stopPropagation(); downloadToPC(data.image, data.name); }} title="Download to PC">
+        <img src={downloadIcon} alt="Download" style={{ width: '60%', height: '60%', filter: 'brightness(0) invert(1)' }} />
+      </div>
+
+      <div className={editButton} onClick={(e) => { e.stopPropagation(); onRename(); }} title="Rename Shape">
         <img src={editIcon} alt="Edit" style={{ width: '60%', height: '60%', filter: 'brightness(0) invert(1)' }} />
       </div>
 
-      <div className={deleteButton} onClick={handleDeleteClick} title="Delete Shape">
+      <div className={deleteButton} onClick={(e) => { e.stopPropagation(); onDelete(); }} title="Delete Shape">
         ✕
       </div>
 

@@ -14,7 +14,7 @@ import { getMinRotation } from "../utils/shapeUtils";
 import arrowIcon from "../assets/arrow.png";
 import deleteIcon from "../assets/delete.png";
 import saveIcon from "../assets/save.png";
-import loadIcon from "../assets/load.png";
+import loadIcon from "../assets/menu.png";
 import axisHelperIcon from "../assets/axis.png";
 import resetIcon from "../assets/reset.png"
 import screenshotIcon from "../assets/screenshot.png"

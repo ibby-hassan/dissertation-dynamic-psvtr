@@ -94,3 +94,11 @@ export const editButton = style([actionButtonBase, {
     backgroundColor: "#007A8C",
   }
 }]);
+
+export const downloadButton = style([editButton, {
+  right: "65px", // 5 (delete) + 30 (edit) + 30 (this)
+  backgroundColor: "#4CAF50", // Green
+  ':hover': {
+      backgroundColor: "#388E3C",
+  }
+}]);

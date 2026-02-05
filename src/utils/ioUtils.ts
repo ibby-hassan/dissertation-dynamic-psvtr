@@ -6,6 +6,7 @@ export interface SaveObject {
   date: string;
   shape: Shape;
   image: string;
+  globalRotation?: [number, number, number];
 }
 
 const STORAGE_KEY = 'psvtr_saves';
@@ -20,20 +21,34 @@ export function downloadToPC(dataUrl: string, filename: string) {
   link.remove();
 };
 
-export function saveToLocalStorage(shape: Shape, dataUrl: string, name: string): { success: boolean; message: string } {
-  const saveObject: SaveObject = {
-    id: Date.now(),
-    name: name,
-    date: new Date().toISOString(),
-    shape: shape,
-    image: dataUrl
-  };
-
+export function saveToLocalStorage(shape: Shape, dataUrl: string, name: string, globalRotation: [number, number, number]): { success: boolean; message: string } {
   try {
     const existingSaves = fetchLocalSaves();
-    existingSaves.push(saveObject);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(existingSaves));
-    return { success: true, message: "Shape saved successfully!" };
+    const existingIndex = existingSaves.findIndex(s => s.name.toLowerCase() === name.toLowerCase());
+
+    if (existingIndex !== -1) {
+      existingSaves[existingIndex] = {
+        ...existingSaves[existingIndex],
+        shape: shape,
+        image: dataUrl,
+        globalRotation: globalRotation
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(existingSaves));
+      return { success: true, message: `"${name}" overwritten successfully!` };
+    } 
+    else {
+      const saveObject: SaveObject = {
+        id: Date.now(),
+        name: name,
+        date: new Date().toISOString(),
+        shape: shape,
+        image: dataUrl,
+        globalRotation: globalRotation
+      };
+      existingSaves.push(saveObject);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(existingSaves));
+      return { success: true, message: "Shape saved successfully!" };
+    }
   } catch (e) {
     console.error("Storage failed", e);
     return { success: false, message: "Failed to save: Local Storage might be full." };

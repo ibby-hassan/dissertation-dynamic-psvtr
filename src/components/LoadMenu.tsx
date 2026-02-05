@@ -40,19 +40,16 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
     if (selectedId === null) return;
     const selectedSave = saves.find(s => s.id === selectedId);
     if (selectedSave) {
-      onLoadShape(selectedSave.shape);
+      onLoadShape(selectedSave as any); 
     }
   };
 
   const handleDelete = (id: number) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this shape?");
-    if (confirmDelete) {
-      const updatedList = deleteLocalSave(id);
-      setSaves(updatedList);
+    const updatedList = deleteLocalSave(id);
+    setSaves(updatedList);
 
-      if (selectedId === id) {
-        setSelectedId(null);
-      }
+    if (selectedId === id) {
+      setSelectedId(null);
     }
   };
 
@@ -71,10 +68,8 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
   // --- Sorting Logic ---
   const handleSort = (field: 'date' | 'name') => {
     if (sortField === field) {
-      // Toggle order if clicking same field
       setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
     } else {
-      // New field: set defaults (Name -> Asc, Date -> Desc)
       setSortField(field);
       setSortOrder(field === 'name' ? 'asc' : 'desc');
     }
@@ -105,7 +100,7 @@ const LoadMenu = ({ isOpen, onClose, onLoadShape }: LoadMenuProps) => {
       />
 
       <div className={header}>
-        <h2 className={title}>Load Saved Shape</h2>
+        <h2 className={title}>Saved Shapes</h2>
 
         {/* Sort Controls */}
         <div className={sortControls}>
