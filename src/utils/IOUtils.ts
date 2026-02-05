@@ -1,4 +1,4 @@
-import type { Shape } from "./ShapeUtils";
+import type { Shape } from "./shapeUtils";
 
 export interface SaveObject {
   id: number;

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { SubshapeType } from './ShapeUtils';
+import type { SubshapeType } from './shapeUtils';
 import type { JSX } from 'react';
 
 
@@ -75,7 +75,7 @@ bigObliqueCubeGeometry.setIndex(obliqueCubeIndices);
 const extrudeSettings = {
   depth: 1,
   bevelEnabled: false,
-  curveSegments: 64 
+  curveSegments: 64
 };
 
 
