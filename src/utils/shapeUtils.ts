@@ -1,6 +1,6 @@
 import { Euler, Quaternion, Vector3 } from 'three';
 
-export type SubshapeType = 'empty' | 'cube' | 'half' | 'wedge' | 'pie' | 'long wedge' | 'big pie';
+export type SubshapeType = 'empty' | 'cube' | 'half' | 'wedge' | 'pie' | 'oblique cube'| 'long wedge' | 'big pie' | 'big oblique cube';
 export type Subshape = {
   type: SubshapeType;
   position: [number, number, number];
@@ -46,7 +46,7 @@ export function calculateGlobalRotation( currentRotation: [number, number, numbe
   direction: number
 ): [number, number, number] {
   
-  // 1. Convert current Euler state to Quaternion
+  // 1. Euler -> Quaternion
   const currentEuler = new Euler(...currentRotation);
   const currentQ = new Quaternion().setFromEuler(currentEuler);
 
@@ -57,20 +57,18 @@ export function calculateGlobalRotation( currentRotation: [number, number, numbe
     axis === 'z' ? 1 : 0
   );
 
-  // 3. Create the rotation step
   const angle = direction * (Math.PI / 2);
   const deltaQ = new Quaternion().setFromAxisAngle(worldAxis, angle);
 
-  // 4. Pre-multiply apply the rotation relative to the World
+  // 3. Pre-multiply apply the rotation relative to the World
   currentQ.premultiply(deltaQ);
 
-  // 5. Convert back to Euler
+  // 4. Quaternion -> Euler
   const newEuler = new Euler().setFromQuaternion(currentQ);
   
   return [newEuler.x, newEuler.y, newEuler.z];
 }
 
-// Helper function: find the simplest set of rotations to produce a given orientation
 export const getMinRotation = (currentRotation: [number, number, number]): string => {
   const givenOrientation = new Quaternion().setFromEuler(new Euler(...currentRotation));
   const HALF_PI = Math.PI / 2;

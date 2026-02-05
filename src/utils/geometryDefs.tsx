@@ -18,6 +18,33 @@ pieShape.absarc(0, 0, 1, 0, Math.PI / 2, false);
 pieShape.lineTo(0, 0);
 pieShape.closePath();
 
+const obliqueCubeVertices = new Float32Array([
+  1, 0, 0,
+  0, 0, 0,
+  0, 0, 1,
+  1, 0, 1,
+  1, 1, 0,
+  0, 1, 0,
+  0, 1, 1
+]);
+const obliqueCubeIndices = [
+  // Triangle faces
+  0, 4, 3,
+  6, 2, 3,
+  4, 5, 6,
+  4, 6, 3,
+  // Square faces
+  4, 0, 1,
+  5, 4, 1,
+  1, 2, 6,
+  1, 6, 5,
+  3, 2, 1,
+  0, 3, 1
+];
+const obliqueCubeGeometry = new THREE.BufferGeometry();
+obliqueCubeGeometry.setAttribute('position', new THREE.BufferAttribute(obliqueCubeVertices, 3));
+obliqueCubeGeometry.setIndex(obliqueCubeIndices);
+
 const longWedgeShape = new THREE.Shape();
 longWedgeShape.moveTo(0, 0);
 longWedgeShape.lineTo(2, 0);
@@ -31,12 +58,26 @@ bigPieShape.absarc(0, 0, 2, 0, Math.PI / 2, false);
 bigPieShape.lineTo(0, 0);
 bigPieShape.closePath();
 
+const bigObliqueCubeVertices = new Float32Array([
+  2, 0, 0,
+  0, 0, 0,
+  0, 0, 2,
+  2, 0, 2,
+  2, 2, 0,
+  0, 2, 0,
+  0, 2, 2
+]);
+const bigObliqueCubeGeometry = new THREE.BufferGeometry();
+bigObliqueCubeGeometry.setAttribute('position', new THREE.BufferAttribute(bigObliqueCubeVertices, 3));
+bigObliqueCubeGeometry.setIndex(obliqueCubeIndices);
+
 // --- Extrusion Settings ---
 const extrudeSettings = {
   depth: 1,
   bevelEnabled: false,
   curveSegments: 64 
 };
+
 
 // --- Configuration Interface ---
 export interface GeometryConfig {
@@ -64,12 +105,20 @@ export const SUBSHAPE_GEOMETRIES: Record<SubshapeType, GeometryConfig | null> = 
     geometry: <extrudeGeometry args={[pieShape, extrudeSettings]} />,
     offset: [-0.5, -0.5, -0.5],
   },
+  'oblique cube': {
+    geometry: <primitive object={obliqueCubeGeometry} attach="geometry" />,
+    offset: [-0.5, -0.5, -0.5],
+  },
   'long wedge': {
     geometry: <extrudeGeometry args={[longWedgeShape, extrudeSettings]} />,
     offset: [-0.5, -0.5, -0.5],
   },
   'big pie': {
     geometry: <extrudeGeometry args={[bigPieShape, extrudeSettings]} />,
+    offset: [-0.5, -0.5, -0.5],
+  },
+  'big oblique cube': {
+    geometry: <primitive object={bigObliqueCubeGeometry} attach="geometry" />,
     offset: [-0.5, -0.5, -0.5],
   }
 };
