@@ -1,6 +1,6 @@
 import { canvasToolbar } from "./styles/CanvasToolbar.css.ts";
 import SubshapeSelect from "./SubshapeSelect";
-import type { Shape } from "../utils/ShapeUtils.ts";
+import type { Shape } from "../utils/shapeUtils.ts";
 
 interface CanvasToolbarProps {
   shape: Shape;

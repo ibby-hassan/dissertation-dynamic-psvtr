@@ -1,6 +1,6 @@
 import { menuSection, title, shapeGrid, sectionLabel } from "./styles/MenuSection.css.ts";
 import ShapeSelect from "./ShapeSelect";
-import type { SubshapeType } from "../utils/ShapeUtils.ts";
+import type { SubshapeType } from "../utils/shapeUtils.ts";
 
 interface MenuSectionProps {
   selectedShape: SubshapeType;
@@ -9,8 +9,8 @@ interface MenuSectionProps {
 
 const MenuSection = ({ selectedShape, onSelectShape }: MenuSectionProps) => {
 
-  const standardShapes: SubshapeType[] = ['empty', 'cube', 'half', 'wedge', 'pie'];
-  const unconventionalShapes: SubshapeType[] = ['long wedge', 'big pie'];
+  const standardShapes: SubshapeType[] = ['empty', 'cube', 'half', 'wedge', 'pie', 'oblique cube'];
+  const unconventionalShapes: SubshapeType[] = ['long wedge', 'big pie', 'big oblique cube'];
 
   return (
     <section className={menuSection}>

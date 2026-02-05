@@ -1,12 +1,12 @@
-import { 
-  subshapeSelect, index, controlsContainer, rotateButton, 
+import {
+  subshapeSelect, index, controlsContainer, rotateButton,
   btnX, btnY, btnZ,
   posXLeft, posXRight, posYLeft, posYRight, posZLeft, posZRight,
   rotCW, rotCCW,
   infoContainer, typeLabel, rotationLabel
 } from "./styles/SubshapeSelect.css.ts";
-import type { SubshapeType } from "../utils/ShapeUtils.ts";
-import { getMinRotation } from "../utils/ShapeUtils.ts";
+import type { SubshapeType } from "../utils/shapeUtils.ts";
+import { getMinRotation } from "../utils/shapeUtils.ts";
 
 import arrowIcon from "../assets/arrow.png";
 
@@ -23,7 +23,7 @@ interface SubshapeSelectProps {
 const SubshapeSelect = ({ indexValue = -1, type, rotation, onClick, onMouseEnter, onMouseLeave, onRotate }: SubshapeSelectProps) => {
 
   const handleRotate = (e: React.MouseEvent, axis: 'x' | 'y' | 'z', dir: number) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     if (onRotate) onRotate(axis, dir);
   };
 
@@ -31,7 +31,7 @@ const SubshapeSelect = ({ indexValue = -1, type, rotation, onClick, onMouseEnter
 
   return (
     <div className={subshapeSelect} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      
+
       <div className={infoContainer}>
         <p className={index}>{indexValue}</p>
         <p className={typeLabel}>{type}</p>

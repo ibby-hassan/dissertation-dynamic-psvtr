@@ -1,4 +1,4 @@
-import type { Shape, Subshape } from '../utils/ShapeUtils';
+import type { Shape, Subshape } from '../utils/shapeUtils';
 import { SUBSHAPE_GEOMETRIES } from '../utils/geometryDefs';
 
 interface ShapeSpaceProps {
@@ -10,7 +10,7 @@ const ShapeSpace = ({ shape }: ShapeSpaceProps) => {
     <group position={[-0.5, -0.5, -0.5]}>
       {shape.map((subshape: Subshape) => {
         const { position, rotation, type, index } = subshape;
-        
+
         const GEOMETRIES = SUBSHAPE_GEOMETRIES[type];
 
         if (!GEOMETRIES) return null;

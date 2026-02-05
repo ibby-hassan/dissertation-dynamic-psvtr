@@ -7,7 +7,7 @@ import ShapeSpace from './ShapeSpace.tsx';
 import SceneUpdater from '../utils/SceneUpdater';
 import CaptureHandler from '../utils/CaptureHandler.tsx';
 import SubshapeIndicator from './SubshapeIndicator.tsx';
-import type { Shape } from '../utils/ShapeUtils.ts';
+import type { Shape } from '../utils/shapeUtils.ts';
 
 interface CanvasComponentProps {
   onReset: () => void;
