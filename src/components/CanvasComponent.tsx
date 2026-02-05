@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
+import { OrbitControls } from '@react-three/drei';
 
 import { canvasWrapper } from './styles/CanvasComponent.css.ts';
 import CanvasOverlay from './CanvasOverlay';
@@ -72,6 +73,8 @@ const CanvasComponent = ({
           captureTrigger={captureTrigger}
           onCaptured={onCaptureComplete}
         />
+
+        {/* <OrbitControls /> */}
 
       </Canvas>
     </div>

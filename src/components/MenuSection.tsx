@@ -9,8 +9,8 @@ interface MenuSectionProps {
 
 const MenuSection = ({ selectedShape, onSelectShape }: MenuSectionProps) => {
 
-  const standardShapes: SubshapeType[] = ['empty', 'cube', 'half', 'wedge', 'pie'];
-  const unconventionalShapes: SubshapeType[] = ['long wedge', 'big pie'];
+  const standardShapes: SubshapeType[] = ['empty', 'cube', 'half', 'wedge', 'pie', 'oblique cube'];
+  const unconventionalShapes: SubshapeType[] = ['long wedge', 'big pie', 'big oblique cube'];
 
   return (
     <section className={menuSection}>
