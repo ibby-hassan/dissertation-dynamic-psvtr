@@ -29,6 +29,45 @@ export const title = style({
   color: "#333",
 });
 
+// --- Sorting Controls ---
+export const sortControls = style({
+  display: "flex",
+  gap: "10px",
+  alignItems: "center",
+});
+
+export const sortButton = style({
+  padding: "8px 16px",
+  borderRadius: "6px",
+  border: "1px solid #ddd",
+  backgroundColor: "white",
+  cursor: "pointer",
+  fontSize: "0.9rem",
+  color: "#555",
+  display: "flex",
+  alignItems: "center",
+  gap: "8px", // Increased gap slightly for the icon
+  transition: "all 0.2s",
+  ':hover': {
+      backgroundColor: "#f9f9f9",
+      borderColor: "#ccc",
+  }
+});
+
+export const activeSort = style({
+    backgroundColor: "#eef7f9",
+    borderColor: "#009FB7",
+    color: "#009FB7",
+    fontWeight: "600",
+});
+
+export const sortIcon = style({
+    width: "14px",
+    height: "14px",
+    objectFit: "contain",
+    opacity: 0.8,
+});
+
 export const gridContainer = style({
   flex: 1,
   overflowY: "auto",
@@ -71,8 +110,8 @@ export const button = style({
       opacity: 0.8,
   },
   ':disabled': {
-      opacity: 0.5,
-      cursor: "not-allowed",
+    opacity: 0.5,
+    cursor: "not-allowed",
   }
 });
 
