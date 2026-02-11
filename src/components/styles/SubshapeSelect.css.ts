@@ -42,6 +42,7 @@ export const typeLabel = style({
   textTransform: "capitalize",
   color: "#333",
   margin: 0,
+  textAlign: "center",
 });
 
 export const rotationLabel = style({
