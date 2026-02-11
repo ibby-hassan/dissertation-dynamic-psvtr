@@ -18,25 +18,35 @@ import loadIcon from "../assets/menu.png";
 import axisHelperIcon from "../assets/axis.png";
 import resetIcon from "../assets/reset.png"
 import screenshotIcon from "../assets/screenshot.png"
+import orbitIcon from "../assets/orbit.png"
 
 interface CanvasOverlayProps {
-  onReset: () => void;
-  onRotateObject: (axis: 'x' | 'y' | 'z', direction: number) => void;
-  onToggleAxisHelper: () => void;
-  onResetShapeRotation: () => void;
-  isAxisVisible: boolean;
-  shapeRotation?: [number, number, number];
+  // Action Props
   onDownloadClick: () => void;
   onSaveClick: () => void;
   onLoadClick: () => void;
+
+  // View Props
+  onToggleAxisHelper: () => void;
+  isAxisVisible: boolean;
+  onToggleOrbit: () => void;
+  isOrbitEnabled: boolean;
+  onResetOrbit: () => void;
+
+  // Shape Actions
+  onReset: () => void;
+  onRotateObject: (axis: 'x' | 'y' | 'z', direction: number) => void;
+  onResetShapeRotation: () => void;
+  shapeRotation?: [number, number, number];
 }
 
 const CanvasOverlay = ({
   onReset,
   onRotateObject, onResetShapeRotation,
-  onToggleAxisHelper,
+  onToggleAxisHelper, isAxisVisible,
+  onToggleOrbit, isOrbitEnabled, onResetOrbit,
   onDownloadClick, onSaveClick, onLoadClick,
-  isAxisVisible, shapeRotation = [0, 0, 0],
+  shapeRotation = [0, 0, 0],
 }: CanvasOverlayProps) => {
 
   const rotationTracker = getMinRotation(shapeRotation);
@@ -48,14 +58,6 @@ const CanvasOverlay = ({
       <div className={menuSegment}>
         <p className={segmentTitle}>Actions</p>
         <div className={actionGrid}>
-          <button
-            className={`${actionButton} ${deleteAction}`}
-            onClick={onReset}
-            title="Clear Canvas"
-          >
-            <img src={deleteIcon} className={iconAction} alt="Reset" />
-          </button>
-
           <button className={`${actionButton} ${saveAction}`} onClick={onSaveClick} title="Save Shape">
             <img src={saveIcon} className={iconAction} alt="Save" />
           </button>
@@ -64,15 +66,31 @@ const CanvasOverlay = ({
             <img src={loadIcon} className={iconAction} alt="Load" />
           </button>
 
+          <button className={`${actionButton} ${downloadAction}`} onClick={onDownloadClick} title="Screenshot">
+            <img src={screenshotIcon} className={iconAction} alt="Screenshot" />
+          </button>
+        </div>
+      </div>
+
+      {/* --- VIEW --- */}
+      <div className={menuSegment}>
+        <p className={segmentTitle}>View</p>
+        <div className={actionGrid}>
           <button
             className={`${actionButton} ${isAxisVisible ? toggledAction : ''}`}
-            onClick={() => onToggleAxisHelper()} title="Toggle Axis Helper"
+            onClick={onToggleAxisHelper} title="Toggle Axis Helper"
           >
             <img src={axisHelperIcon} className={iconAction} alt="Axis Helper" />
           </button>
 
-          <button className={`${actionButton} ${downloadAction}`} onClick={onDownloadClick} title="Screenshot">
-            <img src={screenshotIcon} className={iconAction} alt="Screenshot" />
+          <button
+            className={`${actionButton} ${isOrbitEnabled ? toggledAction : ''}`}
+            onClick={onToggleOrbit} title="Toggle Orbit Controls"
+          >
+            <img src={orbitIcon} className={iconAction} alt="Orbit" />
+          </button>
+          <button className={actionButton} onClick={onResetOrbit} title="Reset Camera View">
+            <img src={resetIcon} className={iconAction} alt="Reset View" />
           </button>
         </div>
       </div>
@@ -81,9 +99,20 @@ const CanvasOverlay = ({
       <div className={menuSegment}>
         <p className={segmentTitle}>Shape Rotation</p>
 
-        <button className={`${actionButton} ${resetAction}`} onClick={onResetShapeRotation} title="Reset">
-          <img src={resetIcon} className={iconAction} alt="Reset" />
-        </button>
+        <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%', marginBottom: '0.5rem' }}>
+          <button
+            className={`${actionButton} ${deleteAction}`}
+            onClick={onReset}
+            title="Clear Canvas"
+          >
+            <img src={deleteIcon} className={iconAction} alt="Clear" />
+          </button>
+
+          <button className={`${actionButton} ${resetAction}`} onClick={onResetShapeRotation} title="Reset Rotation">
+            <img src={resetIcon} className={iconAction} alt="Reset Rot" />
+          </button>
+        </div>
+
         <p className={trackerLabel}>{rotationTracker}</p>
 
         {/* X Axis Row */}
