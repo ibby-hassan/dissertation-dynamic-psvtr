@@ -58,19 +58,6 @@ bigPieShape.absarc(0, 0, 2, 0, Math.PI / 2, false);
 bigPieShape.lineTo(0, 0);
 bigPieShape.closePath();
 
-const bigObliqueCubeVertices = new Float32Array([
-  2,0,0,
-  0,0,0,
-  0,0,2,
-  2,0,2,
-  2,2,0,
-  0,2,0,
-  0,2,2
-]);
-const bigObliqueCubeGeometry = new THREE.BufferGeometry();
-bigObliqueCubeGeometry.setAttribute('position', new THREE.BufferAttribute(bigObliqueCubeVertices, 3));
-bigObliqueCubeGeometry.setIndex(obliqueCubeIndices);
-
 const clawVertices = new Float32Array([
   1,0,0,
   1,1,0,
@@ -134,10 +121,6 @@ export const SUBSHAPE_GEOMETRIES: Record<SubshapeType, GeometryConfig | null> = 
   },
   'big pie': {
     geometry: <extrudeGeometry args={[bigPieShape, extrudeSettings]} />,
-    offset: [-0.5, -0.5, -0.5],
-  },
-  'big oblique cube': {
-    geometry: <primitive object={bigObliqueCubeGeometry} attach="geometry" />,
     offset: [-0.5, -0.5, -0.5],
   },
   'claw': {

@@ -1,6 +1,6 @@
 import { Euler, Quaternion, Vector3 } from 'three';
 
-export type SubshapeType = 'empty' | 'cube' | 'half' | 'wedge' | 'pie' | 'oblique cube'| 'long wedge' | 'big pie' | 'big oblique cube' | 'claw';
+export type SubshapeType = 'empty' | 'cube' | 'half' | 'wedge' | 'pie' | 'oblique cube'| 'long wedge' | 'big pie' | 'claw';
 export type Subshape = {
   type: SubshapeType;
   position: [number, number, number];
